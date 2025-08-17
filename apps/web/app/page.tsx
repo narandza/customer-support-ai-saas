@@ -1,4 +1,4 @@
-import { api } from "@workspace/backend/convex/_generated/api";
+import { api } from "@workspace/backend/_generated/api";
 import { useQuery } from "convex/react";
 
 export default function Page() {
