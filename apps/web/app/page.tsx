@@ -1,3 +1,5 @@
+"use client";
+
 import { api } from "@workspace/backend/_generated/api";
 import { useQuery } from "convex/react";
 
