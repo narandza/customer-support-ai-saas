@@ -6,9 +6,9 @@ import {
   useMutation,
   useQuery,
 } from "convex/react";
+import { SignIn, UserButton } from "@clerk/nextjs";
 import { api } from "@workspace/backend/_generated/api";
 import { Button } from "@workspace/ui/components/button";
-import { SignIn, UserButton } from "@clerk/nextjs";
 
 export default function Page() {
   const users = useQuery(api.users.getMany);
