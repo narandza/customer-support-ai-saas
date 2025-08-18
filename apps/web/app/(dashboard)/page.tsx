@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery } from "convex/react";
-import { SignIn, UserButton } from "@clerk/nextjs";
+import { OrganizationSwitcher, SignIn, UserButton } from "@clerk/nextjs";
 import { api } from "@workspace/backend/_generated/api";
 import { Button } from "@workspace/ui/components/button";
 
@@ -13,6 +13,7 @@ export default function Page() {
     <>
       <div className="flex flex-col items-center justify-center min-h-svh">
         <p className="">apps/web</p>
+        <OrganizationSwitcher hidePersonal />
         <Button onClick={() => addUser()}>Add user</Button>
         <div className="max-w-sm w-full mx-auto">
           {JSON.stringify(users, null, 2)}
