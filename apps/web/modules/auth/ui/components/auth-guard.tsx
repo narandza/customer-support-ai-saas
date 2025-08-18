@@ -1,6 +1,7 @@
 "use client";
 
 import { Authenticated, AuthLoading, Unauthenticated } from "convex/react";
+
 import { AuthLayout } from "../layouts/auth-layout";
 import { SignInView } from "../views/sign-in-view";
 
