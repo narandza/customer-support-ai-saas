@@ -28,8 +28,6 @@ export const add = mutation({
       name: "John",
     });
 
-    throw new Error("Tracking test");
-
     return userId;
   },
 });
