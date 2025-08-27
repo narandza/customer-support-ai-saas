@@ -14,6 +14,7 @@ import {
   SidebarRail,
 } from "@workspace/ui/components/sidebar";
 import {
+  CreditCardIcon,
   InboxIcon,
   LayoutDashboardIcon,
   LibraryBigIcon,
@@ -51,6 +52,14 @@ const configurationItems = [
     title: "Voice Assistant",
     url: "/plugins/vapi",
     icon: MicIcon,
+  },
+];
+
+const accountItems = [
+  {
+    title: "Plans & Billing",
+    url: "/billing",
+    icon: CreditCardIcon,
   },
 ];
 
