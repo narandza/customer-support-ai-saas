@@ -11,6 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarRail,
 } from "@workspace/ui/components/sidebar";
 import { InboxIcon, LibraryBigIcon } from "lucide-react";
 import Link from "next/link";
@@ -76,6 +77,7 @@ export const DashboardSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarRail />
     </Sidebar>
   );
 };
