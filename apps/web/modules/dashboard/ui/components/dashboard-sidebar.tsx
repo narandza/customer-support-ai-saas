@@ -3,6 +3,10 @@
 import { OrganizationSwitcher } from "@clerk/nextjs";
 import {
   Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -35,6 +39,29 @@ export const DashboardSidebar = () => {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
+      <SidebarContent>
+        {/* Customer Support */}
+        <SidebarGroup>
+          <SidebarGroupLabel>Customer Support</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {customerSupportItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    tooltip={item.title}
+                    isActive={true}
+                  >
+                    <item.icon />
+                    {item.title}
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
     </Sidebar>
   );
 };
