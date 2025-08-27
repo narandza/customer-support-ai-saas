@@ -100,6 +100,29 @@ export const DashboardSidebar = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {/* Configuration */}
+        <SidebarGroup>
+          <SidebarGroupLabel>Configuration</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {configurationItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    tooltip={item.title}
+                    isActive={isActive(item.url)}
+                  >
+                    <Link href={item.url}>
+                      <item.icon className="size-4" />
+                      <span className="">{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
