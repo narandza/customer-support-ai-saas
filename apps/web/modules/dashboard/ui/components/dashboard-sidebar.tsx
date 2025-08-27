@@ -13,7 +13,13 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@workspace/ui/components/sidebar";
-import { InboxIcon, LibraryBigIcon } from "lucide-react";
+import {
+  InboxIcon,
+  LayoutDashboardIcon,
+  LibraryBigIcon,
+  MicIcon,
+  PaletteIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -27,6 +33,24 @@ const customerSupportItems = [
     title: "Knowledge base",
     url: "/files",
     icon: LibraryBigIcon,
+  },
+];
+
+const configurationItems = [
+  {
+    title: "Widget Customization",
+    url: "/customization",
+    icon: PaletteIcon,
+  },
+  {
+    title: "Integrations",
+    url: "/integrations",
+    icon: LayoutDashboardIcon,
+  },
+  {
+    title: "Voice Assistant",
+    url: "/plugins/vapi",
+    icon: MicIcon,
   },
 ];
 
