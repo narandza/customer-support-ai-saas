@@ -13,6 +13,7 @@ import {
   SidebarMenuItem,
 } from "@workspace/ui/components/sidebar";
 import { InboxIcon, LibraryBigIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const customerSupportItems = [
   {
@@ -28,6 +29,16 @@ const customerSupportItems = [
 ];
 
 export const DashboardSidebar = () => {
+  const pathname = usePathname();
+
+  const isActive = (url: string) => {
+    if (url === "/") {
+      return pathname === "/";
+    }
+
+    return pathname.startsWith(url);
+  };
+
   return (
     <Sidebar className="group" collapsible="icon">
       <SidebarHeader>
@@ -51,7 +62,7 @@ export const DashboardSidebar = () => {
                   <SidebarMenuButton
                     asChild
                     tooltip={item.title}
-                    isActive={true}
+                    isActive={isActive(item.url)}
                   >
                     <item.icon />
                     {item.title}
