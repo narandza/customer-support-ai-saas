@@ -13,6 +13,7 @@ import {
   SidebarMenuItem,
 } from "@workspace/ui/components/sidebar";
 import { InboxIcon, LibraryBigIcon } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const customerSupportItems = [
@@ -64,8 +65,10 @@ export const DashboardSidebar = () => {
                     tooltip={item.title}
                     isActive={isActive(item.url)}
                   >
-                    <item.icon />
-                    {item.title}
+                    <Link href={item.url}>
+                      <item.icon className="size-4" />
+                      <span className="">{item.title}</span>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
