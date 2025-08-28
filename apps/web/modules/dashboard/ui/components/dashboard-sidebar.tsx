@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
+import { cn } from "@workspace/ui/lib/utils";
 
 const customerSupportItems = [
   {
@@ -115,6 +116,10 @@ export const DashboardSidebar = () => {
                   <SidebarMenuButton
                     asChild
                     tooltip={item.title}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90"
+                    )}
                     isActive={isActive(item.url)}
                   >
                     <Link href={item.url}>
@@ -138,6 +143,10 @@ export const DashboardSidebar = () => {
                   <SidebarMenuButton
                     asChild
                     tooltip={item.title}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90"
+                    )}
                     isActive={isActive(item.url)}
                   >
                     <Link href={item.url}>
@@ -161,6 +170,10 @@ export const DashboardSidebar = () => {
                   <SidebarMenuButton
                     asChild
                     tooltip={item.title}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90"
+                    )}
                     isActive={isActive(item.url)}
                   >
                     <Link href={item.url}>
