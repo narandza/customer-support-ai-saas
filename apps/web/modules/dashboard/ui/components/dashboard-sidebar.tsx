@@ -1,6 +1,6 @@
 "use client";
 
-import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 import {
   Sidebar,
   SidebarContent,
@@ -22,8 +22,8 @@ import {
   MicIcon,
   PaletteIcon,
 } from "lucide-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 
 const customerSupportItems = [
   {
