@@ -1,7 +1,9 @@
 "use client";
 
 import { Button } from "@workspace/ui/components/button";
+
 import { useVapi } from "@/modules/widget/hooks/use-vapi";
+
 export default function Page() {
   const {
     isSpeaking,

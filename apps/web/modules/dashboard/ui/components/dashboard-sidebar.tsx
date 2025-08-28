@@ -1,5 +1,13 @@
 "use client";
 
+import {
+  CreditCardIcon,
+  InboxIcon,
+  LayoutDashboardIcon,
+  LibraryBigIcon,
+  MicIcon,
+  PaletteIcon,
+} from "lucide-react";
 import Link from "next/link";
 import {
   Sidebar,
@@ -14,17 +22,9 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@workspace/ui/components/sidebar";
-import {
-  CreditCardIcon,
-  InboxIcon,
-  LayoutDashboardIcon,
-  LibraryBigIcon,
-  MicIcon,
-  PaletteIcon,
-} from "lucide-react";
+import { cn } from "@workspace/ui/lib/utils";
 import { usePathname } from "next/navigation";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
-import { cn } from "@workspace/ui/lib/utils";
 
 const customerSupportItems = [
   {
