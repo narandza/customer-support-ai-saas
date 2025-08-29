@@ -22,7 +22,10 @@ export default defineSchema({
         currentUrl: v.optional(v.string()),
       })
     ),
-  }),
+  })
+    .index("by_organization_id", ["organizationId"])
+    .index("by_expires_at", ["expiresAt"]),
+
   users: defineTable({
     name: v.string(),
   }),
