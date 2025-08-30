@@ -1,6 +1,22 @@
+import z from "zod";
 import { WidgetHeader } from "../components/widget-header";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const formSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+});
 
 export const WidgetAuthScreen = () => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+    },
+  });
+
   return (
     <>
       <WidgetHeader>
