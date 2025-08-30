@@ -2,7 +2,13 @@ import z from "zod";
 import { WidgetHeader } from "../components/widget-header";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormField, FormItem } from "@workspace/ui/components/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+} from "@workspace/ui/components/form";
+import { Input } from "@workspace/ui/components/input";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -38,13 +44,35 @@ export const WidgetAuthScreen = () => {
           <FormField
             control={form.control}
             name="name"
-            render={({ field }) => <FormItem></FormItem>}
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    className="h-10 bg-background"
+                    placeholder="e.g. John Doe"
+                    type="text"
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
           />
 
           <FormField
             control={form.control}
             name="email"
-            render={({ field }) => <FormItem></FormItem>}
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    className="h-10 bg-background"
+                    placeholder="e.g. johndoe@email.com"
+                    type="text"
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
           />
         </form>
       </Form>
