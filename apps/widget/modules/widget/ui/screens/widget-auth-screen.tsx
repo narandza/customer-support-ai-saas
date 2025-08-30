@@ -2,6 +2,7 @@ import z from "zod";
 import { WidgetHeader } from "../components/widget-header";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormField, FormItem } from "@workspace/ui/components/form";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -17,6 +18,10 @@ export const WidgetAuthScreen = () => {
     },
   });
 
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log(values);
+  };
+
   return (
     <>
       <WidgetHeader>
@@ -25,6 +30,24 @@ export const WidgetAuthScreen = () => {
           <p className=" text-lg">Let&apos;s get you started</p>
         </div>
       </WidgetHeader>
+      <Form {...form}>
+        <form
+          className="flex flex-1 flex-col gap-y-4 p-4"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => <FormItem></FormItem>}
+          />
+
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => <FormItem></FormItem>}
+          />
+        </form>
+      </Form>
     </>
   );
 };
