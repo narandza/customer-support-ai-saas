@@ -54,6 +54,14 @@ export const WidgetAuthScreen = () => {
       referrer: document.referrer || "direct",
       currentUrl: window.location.href,
     };
+
+    const contactSessionId = await createContactSession({
+      ...values,
+      organizationId,
+      metadata,
+    });
+
+    console.log(contactSessionId);
   };
 
   return (
