@@ -1,7 +1,4 @@
 import z from "zod";
-import { WidgetHeader } from "../components/widget-header";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -9,12 +6,15 @@ import {
   FormItem,
   FormMessage,
 } from "@workspace/ui/components/form";
-import { Input } from "@workspace/ui/components/input";
-import { Button } from "@workspace/ui/components/button";
+import { useForm } from "react-hook-form";
 import { useMutation } from "convex/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@workspace/ui/components/input";
 import { api } from "@workspace/backend/_generated/api";
-import { userAgent } from "next/server";
+import { Button } from "@workspace/ui/components/button";
 import { Doc } from "@workspace/backend/_generated/dataModel";
+
+import { WidgetHeader } from "../components/widget-header";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
