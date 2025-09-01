@@ -7,8 +7,10 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormMessage,
 } from "@workspace/ui/components/form";
 import { Input } from "@workspace/ui/components/input";
+import { Button } from "@workspace/ui/components/button";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -54,6 +56,7 @@ export const WidgetAuthScreen = () => {
                     {...field}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -66,14 +69,23 @@ export const WidgetAuthScreen = () => {
                 <FormControl>
                   <Input
                     className="h-10 bg-background"
-                    placeholder="e.g. johndoe@email.com"
+                    placeholder="e.g. john.doe@example.com"
                     type="text"
                     {...field}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
+
+          <Button
+            disabled={form.formState.isSubmitting}
+            size="lg"
+            type="submit"
+          >
+            Continue
+          </Button>
         </form>
       </Form>
     </>
