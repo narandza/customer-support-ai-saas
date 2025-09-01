@@ -19,7 +19,8 @@ export const create = mutation({
         viewportSize: v.optional(v.string()),
         timezone: v.optional(v.string()),
         timezoneOffset: v.optional(v.number()),
-        cookieEnabled: v.optional(v.string()),
+        cookieEnabled: v.optional(v.boolean()),
+        referrer: v.optional(v.string()),
         currentUrl: v.optional(v.string()),
       })
     ),
