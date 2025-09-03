@@ -1,16 +1,31 @@
 "use client";
 
+import { useAtomValue } from "jotai";
 import { WidgetFooter } from "../components/widget-footer";
 import { WidgetAuthScreen } from "../screens/widget-auth-screen";
+import { screenAtom } from "../../atoms/widget-atoms";
 
 interface Props {
   organizationId: string;
 }
 
 export const WidgetView = ({ organizationId }: Props) => {
+  const screen = useAtomValue(screenAtom);
+
+  const screenComponents = {
+    error: <p>TODO Error</p>,
+    loading: <p>TODO Loading</p>,
+    auth: <WidgetAuthScreen />,
+    voice: <p>TODO Voice</p>,
+    inbox: <p>TODO Inbox</p>,
+    selection: <p>TODO Selection</p>,
+    chat: <p>TODO chat</p>,
+    contact: <p>TODO Contact</p>,
+  };
+
   return (
     <main className="flex min-h-screen min-w-screen h-full w-full flex-col overflow-hidden rounded-xl border bg-muted">
-      <WidgetAuthScreen />
+      {screenComponents[screen]}
       {/* <WidgetFooter /> */}
     </main>
   );
