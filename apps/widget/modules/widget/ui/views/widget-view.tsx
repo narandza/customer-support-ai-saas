@@ -1,7 +1,7 @@
 "use client";
 
 import { useAtomValue } from "jotai";
-import { WidgetFooter } from "../components/widget-footer";
+
 import { WidgetAuthScreen } from "../screens/widget-auth-screen";
 import { screenAtom } from "../../atoms/widget-atoms";
 
@@ -26,7 +26,6 @@ export const WidgetView = ({ organizationId }: Props) => {
   return (
     <main className="flex min-h-screen min-w-screen h-full w-full flex-col overflow-hidden rounded-xl border bg-muted">
       {screenComponents[screen]}
-      {/* <WidgetFooter /> */}
     </main>
   );
 };
