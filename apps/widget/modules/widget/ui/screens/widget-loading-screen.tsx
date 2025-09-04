@@ -1,10 +1,16 @@
 "use client";
 
 import { useAtomValue, useSetAtom } from "jotai";
-import { errorMessageAtom, loadingMessageAtom } from "../../atoms/widget-atoms";
+import {
+  errorMessageAtom,
+  loadingMessageAtom,
+  screenAtom,
+} from "../../atoms/widget-atoms";
 import { WidgetHeader } from "../components/widget-header";
 import { LoaderIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAction } from "convex/react";
+import { api } from "@workspace/backend/_generated/api";
 
 type InitStep = "org" | "settings" | "session" | "vapi" | "done";
 
@@ -18,6 +24,22 @@ export const WidgetLoadingScreen = ({
 
   const loadingMessage = useAtomValue(loadingMessageAtom);
   const setErrorMessage = useSetAtom(errorMessageAtom);
+  const setLoadingMessage = useSetAtom(loadingMessageAtom);
+  const setScreen = useSetAtom(screenAtom);
+
+  const validateOrganization = useAction(api.public.organizations.validate);
+  useEffect(() => {
+    if (step !== "org") {
+      return;
+    }
+
+    setLoadingMessage("Loading organization");
+
+    if (!organizationId) {
+      setErrorMessage("Organization ID is required");
+      setScreen("error");
+    }
+  }, [step, organizationId, setErrorMessage, setScreen]);
 
   return (
     <>
