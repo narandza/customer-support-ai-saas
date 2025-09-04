@@ -10,7 +10,7 @@ import {
 import { WidgetHeader } from "../components/widget-header";
 import { LoaderIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useAction } from "convex/react";
+import { useAction, useMutation } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
 
 type InitStep = "org" | "settings" | "session" | "vapi" | "done";
@@ -60,7 +60,26 @@ export const WidgetLoadingScreen = ({
         setErrorMessage("Unable to verify organization");
         setScreen("error");
       });
-  }, [step, organizationId, setErrorMessage, setScreen]);
+  }, [
+    step,
+    organizationId,
+    setErrorMessage,
+    setScreen,
+    setOrganizationId,
+    setStep,
+    setLoadingMessage,
+    validateOrganization,
+  ]);
+
+  const validateContactSession = useMutation(
+    api.public.contactSessions.validate
+  );
+  useEffect(() => {
+    if (step !== "session") {
+      return;
+    }
+    setLoadingMessage("Loading session...");
+  }, []);
 
   return (
     <>

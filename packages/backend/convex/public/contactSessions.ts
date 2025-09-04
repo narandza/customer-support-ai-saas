@@ -42,7 +42,7 @@ export const create = mutation({
   },
 });
 
-export const validateMutation = mutation({
+export const validate = mutation({
   args: {
     contactSessionId: v.id("contactSessions"),
   },
