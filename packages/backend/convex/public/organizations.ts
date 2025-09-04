@@ -10,7 +10,7 @@ export const create = action({
   args: {
     organizationId: v.string(),
   },
-  handler: async (convexToJson, args) => {
+  handler: async (_, args) => {
     try {
       await clerkClient.organizations.getOrganization({
         organizationId: args.organizationId,
