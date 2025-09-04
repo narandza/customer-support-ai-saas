@@ -12,7 +12,6 @@ import { LoaderIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAction } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
-import { error } from "console";
 
 type InitStep = "org" | "settings" | "session" | "vapi" | "done";
 
@@ -50,6 +49,7 @@ export const WidgetLoadingScreen = ({
       .then((result) => {
         if (result.valid) {
           setOrganizationId(organizationId);
+          setStep("session");
         } else {
           setErrorMessage(result.reason || "Invalid configuration");
           setScreen("error");
