@@ -1,9 +1,10 @@
 "use client";
 
 import { useAtomValue } from "jotai";
-import { errorMessageAtom } from "../../atoms/widget-atoms";
-import { WidgetHeader } from "../components/widget-header";
 import { AlertTriangleIcon } from "lucide-react";
+
+import { WidgetHeader } from "../components/widget-header";
+import { errorMessageAtom } from "../../atoms/widget-atoms";
 
 export const WidgetErrorScreen = () => {
   const errorMessage = useAtomValue(errorMessageAtom);

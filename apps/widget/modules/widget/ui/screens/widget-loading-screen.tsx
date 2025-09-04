@@ -1,6 +1,11 @@
 "use client";
 
+import { LoaderIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
+import { useAction, useMutation } from "convex/react";
+import { api } from "@workspace/backend/_generated/api";
+
 import {
   contactSessionIdAtomFamily,
   errorMessageAtom,
@@ -9,10 +14,6 @@ import {
   screenAtom,
 } from "../../atoms/widget-atoms";
 import { WidgetHeader } from "../components/widget-header";
-import { LoaderIcon } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useAction, useMutation } from "convex/react";
-import { api } from "@workspace/backend/_generated/api";
 
 type InitStep = "org" | "settings" | "session" | "vapi" | "done";
 

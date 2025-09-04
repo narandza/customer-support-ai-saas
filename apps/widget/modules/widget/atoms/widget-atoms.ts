@@ -1,9 +1,9 @@
 import { atom } from "jotai";
+import { atomFamily, atomWithStorage } from "jotai/utils";
+import { Id } from "@workspace/backend/_generated/dataModel";
 
 import { WidgetScreen } from "../types";
-import { atomFamily, atomWithStorage } from "jotai/utils";
 import { CONTACT_SESSION_KEY } from "../constants";
-import { Id } from "@workspace/backend/_generated/dataModel";
 
 // Basic widget state atoms
 export const screenAtom = atom<WidgetScreen>("loading");
