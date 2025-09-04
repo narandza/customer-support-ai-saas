@@ -106,9 +106,19 @@ export const WidgetLoadingScreen = ({
       })
       .catch(() => {
         setSessionValid(false);
-        setStep("settings");
+        setStep("done");
       });
   }, [step, contactSessionId, validateContactSession, setLoadingMessage]);
+
+  useEffect(() => {
+    if (step !== "done") {
+      return;
+    }
+
+    const hasValidSession = contactSessionId && sessionValid;
+
+    setScreen(hasValidSession ? "selection" : "auth");
+  }, [step, contactSessionId, sessionValid, setScreen]);
 
   return (
     <>
