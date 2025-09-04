@@ -2,6 +2,7 @@
 
 import { useAtomValue, useSetAtom } from "jotai";
 import {
+  contactSessionIdAtomFamily,
   errorMessageAtom,
   loadingMessageAtom,
   organizationIdAtom,
@@ -28,6 +29,10 @@ export const WidgetLoadingScreen = ({
   const setErrorMessage = useSetAtom(errorMessageAtom);
   const setLoadingMessage = useSetAtom(loadingMessageAtom);
   const setScreen = useSetAtom(screenAtom);
+
+  const contactSessionId = useAtomValue(
+    contactSessionIdAtomFamily(organizationId || "")
+  );
 
   const validateOrganization = useAction(api.public.organizations.validate);
   useEffect(() => {
@@ -78,6 +83,13 @@ export const WidgetLoadingScreen = ({
     if (step !== "session") {
       return;
     }
+
+    if (contactSessionId) {
+      setSessionValid(false);
+      setStep("done");
+      return;
+    }
+
     setLoadingMessage("Loading session...");
   }, []);
 
