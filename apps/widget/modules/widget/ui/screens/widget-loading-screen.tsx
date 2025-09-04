@@ -34,13 +34,14 @@ export const WidgetLoadingScreen = ({
     contactSessionIdAtomFamily(organizationId || "")
   );
 
+  // Step 1: Validate organization
   const validateOrganization = useAction(api.public.organizations.validate);
   useEffect(() => {
     if (step !== "org") {
       return;
     }
 
-    setLoadingMessage("Loading organization...");
+    setLoadingMessage("Finding organization ID...");
 
     if (!organizationId) {
       setErrorMessage("Organization ID is required");
@@ -76,6 +77,7 @@ export const WidgetLoadingScreen = ({
     validateOrganization,
   ]);
 
+  // Step 2: Validate session (if exists)
   const validateContactSession = useMutation(
     api.public.contactSessions.validate
   );
@@ -84,13 +86,15 @@ export const WidgetLoadingScreen = ({
       return;
     }
 
+    setLoadingMessage("Finding contact session ID...");
+
     if (contactSessionId) {
       setSessionValid(false);
       setStep("done");
       return;
     }
 
-    setLoadingMessage("Loading session...");
+    setLoadingMessage("Validating session...");
   }, []);
 
   return (
