@@ -13,7 +13,6 @@ import { LoaderIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAction, useMutation } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
-import { Id } from "@workspace/backend/_generated/dataModel";
 
 type InitStep = "org" | "settings" | "session" | "vapi" | "done";
 
@@ -97,9 +96,7 @@ export const WidgetLoadingScreen = ({
 
     setLoadingMessage("Validating session...");
 
-    validateContactSession({
-      contactSessionId: contactSessionId as Id<"contactSessions">,
-    })
+    validateContactSession({ contactSessionId })
       .then((result) => {
         setSessionValid(result.valid);
         setStep("done");
