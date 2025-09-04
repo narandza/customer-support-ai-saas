@@ -4,6 +4,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import {
   errorMessageAtom,
   loadingMessageAtom,
+  organizationIdAtom,
   screenAtom,
 } from "../../atoms/widget-atoms";
 import { WidgetHeader } from "../components/widget-header";
@@ -11,6 +12,7 @@ import { LoaderIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAction } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
+import { error } from "console";
 
 type InitStep = "org" | "settings" | "session" | "vapi" | "done";
 
@@ -23,6 +25,7 @@ export const WidgetLoadingScreen = ({
   const [sessionValid, setSessionValid] = useState(false);
 
   const loadingMessage = useAtomValue(loadingMessageAtom);
+  const setOrganizationId = useSetAtom(organizationIdAtom);
   const setErrorMessage = useSetAtom(errorMessageAtom);
   const setLoadingMessage = useSetAtom(loadingMessageAtom);
   const setScreen = useSetAtom(screenAtom);
@@ -33,12 +36,30 @@ export const WidgetLoadingScreen = ({
       return;
     }
 
-    setLoadingMessage("Loading organization");
+    setLoadingMessage("Loading organization...");
 
     if (!organizationId) {
       setErrorMessage("Organization ID is required");
       setScreen("error");
+      return;
     }
+
+    setLoadingMessage("Verifying organization...");
+
+    validateOrganization({ organizationId })
+      .then((result) => {
+        if (result.valid) {
+          setOrganizationId(organizationId);
+        } else {
+          setErrorMessage(result.reason || "Invalid configuration");
+          setScreen("error");
+        }
+        9;
+      })
+      .catch(() => {
+        setErrorMessage("Unable to verify organization");
+        setScreen("error");
+      });
   }, [step, organizationId, setErrorMessage, setScreen]);
 
   return (
