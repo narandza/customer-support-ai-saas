@@ -1,16 +1,23 @@
 "use client";
 
-import { useAtomValue } from "jotai";
-import { errorMessageAtom } from "../../atoms/widget-atoms";
+import { useAtomValue, useSetAtom } from "jotai";
+import { errorMessageAtom, loadingMessageAtom } from "../../atoms/widget-atoms";
 import { WidgetHeader } from "../components/widget-header";
 import { LoaderIcon } from "lucide-react";
+import { useState } from "react";
+
+type InitStep = "org" | "settings" | "session" | "vapi" | "done";
 
 export const WidgetLoadingScreen = ({
   organizationId,
 }: {
   organizationId: string | null;
 }) => {
-  const errorMessage = useAtomValue(errorMessageAtom);
+  const [step, setStep] = useState<InitStep>("org");
+  const [sessionValid, setSessionValid] = useState(false);
+
+  const loadingMessage = useAtomValue(loadingMessageAtom);
+  const setErrorMessage = useSetAtom(errorMessageAtom);
 
   return (
     <>
@@ -22,7 +29,7 @@ export const WidgetLoadingScreen = ({
       </WidgetHeader>
       <div className="flex flex-1 flex-col items-center justify-center gap-y-4 p-4 text-muted-foreground">
         <LoaderIcon className="animate-spin" />
-        <p className="text-sm">Loading...</p>
+        <p className="text-sm">{loadingMessage || "Loading..."}</p>
       </div>
     </>
   );
