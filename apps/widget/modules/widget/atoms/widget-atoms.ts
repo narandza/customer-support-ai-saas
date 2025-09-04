@@ -3,6 +3,6 @@ import { atom } from "jotai";
 import { WidgetScreen } from "../types";
 
 // Basic widget state atoms
-export const screenAtom = atom<WidgetScreen>("error");
+export const screenAtom = atom<WidgetScreen>("auth");
 
 export const errorMessageAtom = atom<string | null>(null);
