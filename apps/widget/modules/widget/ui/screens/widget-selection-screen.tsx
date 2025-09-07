@@ -3,8 +3,50 @@
 import { Button } from "@workspace/ui/components/button";
 import { WidgetHeader } from "../components/widget-header";
 import { ChevronRightIcon, MessageSquareTextIcon } from "lucide-react";
+import { useAtomValue, useSetAtom } from "jotai";
+import {
+  contactSessionIdAtomFamily,
+  errorMessageAtom,
+  organizationIdAtom,
+  screenAtom,
+} from "../../atoms/widget-atoms";
+import { useMutation } from "convex/react";
+import { api } from "@workspace/backend/_generated/api";
 
 export const WidgetSelectionScreen = () => {
+  const setScreen = useSetAtom(screenAtom);
+  const setErrorMessage = useSetAtom(errorMessageAtom);
+  const organizationId = useAtomValue(organizationIdAtom);
+  const contactSessionId = useAtomValue(
+    contactSessionIdAtomFamily(organizationId || "")
+  );
+
+  const createConversation = useMutation(api.public.conversations.create);
+
+  const handleNewConversation = async () => {
+    if (!organizationId) {
+      setScreen("error");
+      setErrorMessage("Missing Organization ID");
+      return;
+    }
+
+    if (!contactSessionId) {
+      setScreen("auth");
+      return;
+    }
+
+    try {
+      const conversationId = await createConversation({
+        contactSessionId,
+        organizationId,
+      });
+
+      setScreen("chat");
+    } catch {
+      setScreen("auth");
+    }
+  };
+
   return (
     <>
       <WidgetHeader>
@@ -17,7 +59,7 @@ export const WidgetSelectionScreen = () => {
         <Button
           className="h-16 w-full justify-between"
           variant="outline"
-          onClick={() => {}}
+          onClick={handleNewConversation}
         >
           <div className="flex items-center gap-x-2">
             <MessageSquareTextIcon className="size-4" />
