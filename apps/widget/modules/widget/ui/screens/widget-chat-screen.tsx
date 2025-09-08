@@ -3,14 +3,17 @@
 import { useAtomValue } from "jotai";
 
 import { WidgetHeader } from "../components/widget-header";
+import { Button } from "@workspace/ui/components/button";
+import { ArrowLeftIcon } from "lucide-react";
 
 export const WidgetChatScreen = () => {
   return (
     <>
-      <WidgetHeader>
-        <div className="flex flex-col justify-between gap-y-2 px-2 py-6 font-semibold">
-          <p className="text-3xl">Hi there! 👋</p>
-          <p className=" text-lg">Let&apos;s get you started</p>
+      <WidgetHeader className="flex items-center justify-between">
+        <div className="flex items-center gap-x-2">
+          <Button size="icon">
+            <ArrowLeftIcon />
+          </Button>
         </div>
       </WidgetHeader>
       <div className="flex flex-1 flex-col gap-y-4 p-4 ">Chat Screen</div>
