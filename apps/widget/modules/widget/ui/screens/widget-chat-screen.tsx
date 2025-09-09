@@ -1,18 +1,18 @@
 "use client";
 
+import { useQuery } from "convex/react";
 import { useAtomValue, useSetAtom } from "jotai";
-
-import { WidgetHeader } from "../components/widget-header";
-import { Button } from "@workspace/ui/components/button";
 import { ArrowLeftIcon, MenuIcon } from "lucide-react";
+import { api } from "@workspace/backend/_generated/api";
+import { Button } from "@workspace/ui/components/button";
+
 import {
   contactSessionIdAtomFamily,
   conversationIdAtom,
   organizationIdAtom,
   screenAtom,
 } from "../../atoms/widget-atoms";
-import { useQuery } from "convex/react";
-import { api } from "@workspace/backend/_generated/api";
+import { WidgetHeader } from "../components/widget-header";
 
 export const WidgetChatScreen = () => {
   const setScreen = useSetAtom(screenAtom);
