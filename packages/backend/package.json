@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@clerk/backend": "2.6.1",
+    "@convex-dev/agent": "^0.2.7",
     "convex": "1.25.4"
   }
 }
