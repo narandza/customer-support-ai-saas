@@ -6,3 +6,4 @@
 //   chat: openai.chat("gpt-4o-mini"),
 //   instructions: "You are a customer support agent",
 // });
+import {components} from "../../_generated/api"
