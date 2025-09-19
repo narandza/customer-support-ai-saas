@@ -1,16 +1,16 @@
 "use client";
 
 import { useControllableState } from "@radix-ui/react-use-controllable-state";
+import type { ComponentProps } from "react";
+import { cn } from "@workspace/ui/lib/utils";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@workspace/ui/components/collapsible";
 import { ChevronDownIcon } from "lucide-react";
-import type { ComponentProps } from "react";
-import { createContext, memo, useContext, useEffect, useState } from "react";
-import { cn } from "@workspace/ui/lib/utils";
 import { AIResponse } from "@workspace/ui/components/ai/response";
+import { createContext, memo, useContext, useEffect, useState } from "react";
 
 type AIReasoningContextValue = {
   isStreaming: boolean;

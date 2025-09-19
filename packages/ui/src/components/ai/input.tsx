@@ -1,13 +1,10 @@
 "use client";
 
-import { Loader2Icon, SendIcon, SquareIcon, XIcon } from "lucide-react";
 import type {
   ComponentProps,
   HTMLAttributes,
   KeyboardEventHandler,
 } from "react";
-import { Children, useCallback, useEffect, useRef } from "react";
-import { Button } from "@workspace/ui/components/button";
 import {
   Select,
   SelectContent,
@@ -15,8 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select";
-import { Textarea } from "@workspace/ui/components/textarea";
 import { cn } from "@workspace/ui/lib/utils";
+import { Button } from "@workspace/ui/components/button";
+import { Textarea } from "@workspace/ui/components/textarea";
+import { Children, useCallback, useEffect, useRef } from "react";
+import { Loader2Icon, SendIcon, SquareIcon, XIcon } from "lucide-react";
 
 type UseAutoResizeTextareaProps = {
   minHeight: number;
