@@ -1,8 +1,8 @@
 import { ConvexError, v } from "convex/values";
 import { paginationOptsValidator } from "convex/server";
 
-import { internal } from "../_generated/api";
 import { action, query } from "../_generated/server";
+import { internal } from "../_generated/api";
 import { supportAgent } from "../system/ai/agents/supportAgent";
 
 export const create = action({
@@ -64,7 +64,7 @@ export const create = action({
 export const getMany = query({
   args: {
     threadId: v.string(),
-    paginationOptions: paginationOptsValidator,
+    paginationOpts: paginationOptsValidator,
     contactSessionId: v.id("contactSessions"),
   },
   handler: async (ctx, args) => {
@@ -79,7 +79,7 @@ export const getMany = query({
 
     const paginated = await supportAgent.listMessages(ctx, {
       threadId: args.threadId,
-      paginationOpts: args.paginationOptions,
+      paginationOpts: args.paginationOpts,
     });
 
     return paginated;
