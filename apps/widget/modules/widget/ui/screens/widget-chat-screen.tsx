@@ -13,10 +13,19 @@ import {
   screenAtom,
 } from "../../atoms/widget-atoms";
 import { WidgetHeader } from "../components/widget-header";
-import { useThreadMessages } from "@convex-dev/agent/react";
+import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  AIConversation,
+  AIConversationContent,
+} from "@workspace/ui/components/ai/conversation";
+import {
+  AIMessage,
+  AIMessageContent,
+} from "@workspace/ui/components/ai/message";
+import { AIResponse } from "@workspace/ui/components/ai/response";
 
 const formSchema = z.object({
   message: z.string().min(1, "Message is required"),
@@ -94,10 +103,22 @@ export const WidgetChatScreen = () => {
           <MenuIcon />
         </Button>
       </WidgetHeader>
-      <div className="flex flex-1 flex-col gap-y-4 p-4 ">
-        {JSON.stringify(conversation)}
-        {JSON.stringify(messages)}
-      </div>
+      <AIConversation>
+        <AIConversationContent>
+          {toUIMessages(messages.results ?? [])?.map((message) => {
+            return (
+              <AIMessage
+                from={message.role === "user" ? "user" : "assistant"}
+                key={message.id}
+              >
+                <AIMessageContent>
+                  <AIResponse>{message.content}</AIResponse>
+                </AIMessageContent>
+              </AIMessage>
+            );
+          })}
+        </AIConversationContent>
+      </AIConversation>
     </>
   );
 };
