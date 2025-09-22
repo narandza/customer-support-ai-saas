@@ -14,6 +14,13 @@ import {
 } from "../../atoms/widget-atoms";
 import { WidgetHeader } from "../components/widget-header";
 import { useThreadMessages } from "@convex-dev/agent/react";
+import z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const formSchema = z.object({
+  message: z.string().min(1, "Message is required"),
+});
 
 export const WidgetChatScreen = () => {
   const setScreen = useSetAtom(screenAtom);
@@ -50,6 +57,13 @@ export const WidgetChatScreen = () => {
     setConversationId(null);
     setScreen("selection");
   };
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      message: "",
+    },
+  });
 
   return (
     <>
