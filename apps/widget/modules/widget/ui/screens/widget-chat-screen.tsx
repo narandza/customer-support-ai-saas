@@ -26,6 +26,8 @@ import {
   AIMessageContent,
 } from "@workspace/ui/components/ai/message";
 import { AIResponse } from "@workspace/ui/components/ai/response";
+import { Form, FormField } from "@workspace/ui/components/form";
+import { AIInput, AIInputTextarea } from "@workspace/ui/components/ai/input";
 
 const formSchema = z.object({
   message: z.string().min(1, "Message is required"),
@@ -121,6 +123,35 @@ export const WidgetChatScreen = () => {
         </AIConversationContent>
       </AIConversation>
       {/* TODO: Add suggestions */}
+      <Form {...form}>
+        <AIInput
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="rounded-none border-x-0"
+        >
+          <FormField
+            control={form.control}
+            disabled={conversation?.status === "resolved"}
+            name="message"
+            render={({ field }) => (
+              <AIInputTextarea
+                disabled={conversation?.status === "resolved"}
+                onChange={field.onChange}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    form.handleSubmit(onSubmit)();
+                  }
+                }}
+                placeholder={
+                  conversation?.status === "resolved"
+                    ? "This conversation has been resolved"
+                    : "Type your message..."
+                }
+              />
+            )}
+          />
+        </AIInput>
+      </Form>
     </>
   );
 };
