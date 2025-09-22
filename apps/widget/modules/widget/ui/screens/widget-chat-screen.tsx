@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "convex/react";
+import { useAction, useQuery } from "convex/react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { ArrowLeftIcon, MenuIcon } from "lucide-react";
 import { api } from "@workspace/backend/_generated/api";
@@ -64,6 +64,22 @@ export const WidgetChatScreen = () => {
       message: "",
     },
   });
+
+  const createMessage = useAction(api.public.messages.create);
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (!conversation || !contactSessionId) {
+      return;
+    }
+
+    form.reset();
+
+    await createMessage({
+      threadId: conversation.threadId,
+      prompt: values.message,
+      contactSessionId,
+    });
+  };
 
   return (
     <>
