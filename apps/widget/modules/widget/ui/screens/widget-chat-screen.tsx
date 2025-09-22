@@ -41,6 +41,11 @@ export const WidgetChatScreen = () => {
     contactSessionIdAtomFamily(organizationId || "")
   );
 
+  const onBack = () => {
+    setConversationId(null);
+    setScreen("selection");
+  };
+
   const conversation = useQuery(
     api.public.conversations.getOne,
     conversationId && contactSessionId
@@ -61,11 +66,6 @@ export const WidgetChatScreen = () => {
       : "skip",
     { initialNumItems: 10 } // TODO: Remove magic number
   );
-
-  const onBack = () => {
-    setConversationId(null);
-    setScreen("selection");
-  };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -114,11 +114,13 @@ export const WidgetChatScreen = () => {
                 <AIMessageContent>
                   <AIResponse>{message.content}</AIResponse>
                 </AIMessageContent>
+                {/* TODO: Add Avatar component */}
               </AIMessage>
             );
           })}
         </AIConversationContent>
       </AIConversation>
+      {/* TODO: Add suggestions */}
     </>
   );
 };
