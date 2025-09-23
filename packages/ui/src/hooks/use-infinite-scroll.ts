@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 
 interface UseInfiniteScrollProps {
-  status: "CanLoadMore" | "LoadingMore" | "Exhausted" | "LoadingFistPage";
+  status: "CanLoadMore" | "LoadingMore" | "Exhausted" | "LoadingFirstPage";
   loadMore: (numItems: number) => void;
   loadSize?: number;
   observerEnabled?: boolean;
@@ -46,8 +46,8 @@ export const useInfiniteScroll = ({
     topElementRef,
     handleLoadMore,
     canLoadMore: status === "CanLoadMore",
-    isLoading: status === "LoadingMore",
-    isLoadingFirstPage: status === "LoadingFistPage",
+    isLoadingMore: status === "LoadingMore",
+    isLoadingFirstPage: status === "LoadingFirstPage",
     isExhausted: status === "Exhausted",
   };
 };

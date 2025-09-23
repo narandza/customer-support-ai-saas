@@ -36,6 +36,8 @@ import {
 } from "../../atoms/widget-atoms";
 import { WidgetHeader } from "../components/widget-header";
 
+import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
+
 const formSchema = z.object({
   message: z.string().min(1, "Message is required"),
 });
@@ -75,6 +77,13 @@ export const WidgetChatScreen = () => {
       : "skip",
     { initialNumItems: 10 } // TODO: Remove magic number
   );
+
+  const { topElementRef, handleLoadMore, canLoadMore, isLoadingMore } =
+    useInfiniteScroll({
+      status: messages.status,
+      loadMore: messages.loadMore,
+      loadSize: 10,
+    });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
