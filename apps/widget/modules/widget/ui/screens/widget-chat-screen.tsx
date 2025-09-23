@@ -157,6 +157,7 @@ export const WidgetChatScreen = () => {
             name="message"
             render={({ field }) => (
               <AIInputTextarea
+                {...field}
                 disabled={conversation?.status === "resolved"}
                 onChange={field.onChange}
                 onKeyDown={(e) => {
