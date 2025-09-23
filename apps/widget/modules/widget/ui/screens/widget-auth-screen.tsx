@@ -18,6 +18,7 @@ import { Doc, Id } from "@workspace/backend/_generated/dataModel";
 import {
   contactSessionIdAtomFamily,
   organizationIdAtom,
+  screenAtom,
 } from "../../atoms/widget-atoms";
 import { WidgetHeader } from "../components/widget-header";
 
@@ -26,10 +27,9 @@ const formSchema = z.object({
   email: z.string().email("Invalid email address"),
 });
 
-// Temporary test organizationId, before we add state management
-const organizationId = "123";
-
 export const WidgetAuthScreen = () => {
+  const setScreen = useSetAtom(screenAtom);
+
   const organizationId = useAtomValue(organizationIdAtom);
   const setContactSessionId = useSetAtom(
     contactSessionIdAtomFamily(organizationId || "")
@@ -72,6 +72,7 @@ export const WidgetAuthScreen = () => {
     });
 
     setContactSessionId(contactSessionId);
+    setScreen("selection");
   };
 
   return (
