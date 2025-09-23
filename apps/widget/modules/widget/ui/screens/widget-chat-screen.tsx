@@ -1,10 +1,32 @@
 "use client";
 
-import { useAction, useQuery } from "convex/react";
+import z from "zod";
+import { useForm } from "react-hook-form";
+import {
+  AIInput,
+  AIInputSubmit,
+  AIInputTextarea,
+  AIInputToolbar,
+  AIInputTools,
+} from "@workspace/ui/components/ai/input";
+
+import {
+  AIMessage,
+  AIMessageContent,
+} from "@workspace/ui/components/ai/message";
 import { useAtomValue, useSetAtom } from "jotai";
+import {
+  AIConversation,
+  AIConversationContent,
+} from "@workspace/ui/components/ai/conversation";
+import { useAction, useQuery } from "convex/react";
 import { ArrowLeftIcon, MenuIcon } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@workspace/backend/_generated/api";
 import { Button } from "@workspace/ui/components/button";
+import { Form, FormField } from "@workspace/ui/components/form";
+import { AIResponse } from "@workspace/ui/components/ai/response";
+import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
 
 import {
   contactSessionIdAtomFamily,
@@ -13,27 +35,6 @@ import {
   screenAtom,
 } from "../../atoms/widget-atoms";
 import { WidgetHeader } from "../components/widget-header";
-import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
-import z from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  AIConversation,
-  AIConversationContent,
-} from "@workspace/ui/components/ai/conversation";
-import {
-  AIMessage,
-  AIMessageContent,
-} from "@workspace/ui/components/ai/message";
-import { AIResponse } from "@workspace/ui/components/ai/response";
-import { Form, FormField } from "@workspace/ui/components/form";
-import {
-  AIInput,
-  AIInputSubmit,
-  AIInputTextarea,
-  AIInputToolbar,
-  AIInputTools,
-} from "@workspace/ui/components/ai/input";
 
 const formSchema = z.object({
   message: z.string().min(1, "Message is required"),
