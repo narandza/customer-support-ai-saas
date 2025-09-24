@@ -38,6 +38,7 @@ import { WidgetHeader } from "../components/widget-header";
 
 import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
 import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
+import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 
 const formSchema = z.object({
   message: z.string().min(1, "Message is required"),
@@ -139,7 +140,14 @@ export const WidgetChatScreen = () => {
                 <AIMessageContent>
                   <AIResponse>{message.content}</AIResponse>
                 </AIMessageContent>
-                {/* TODO: Add Avatar component */}
+                {message.role === "assistant" && (
+                  <DicebearAvatar
+                    imageUrl="/logo.svg"
+                    seed="assistant"
+                    size={32}
+                  />
+                  // TODO: Magic Number
+                )}
               </AIMessage>
             );
           })}
