@@ -1,23 +1,33 @@
 "use client";
 
-import { useAtomValue } from "jotai";
-import { AlertTriangleIcon } from "lucide-react";
+import { useAtomValue, useSetAtom } from "jotai";
+import { AlertTriangleIcon, ArrowLeftIcon } from "lucide-react";
 
 import { WidgetHeader } from "../components/widget-header";
-import { errorMessageAtom } from "../../atoms/widget-atoms";
+import { errorMessageAtom, screenAtom } from "../../atoms/widget-atoms";
+import { WidgetFooter } from "../components/widget-footer";
+import { Button } from "@workspace/ui/components/button";
 
 export const WidgetInboxScreen = () => {
+  const setScreen = useSetAtom(screenAtom);
   return (
     <>
       <WidgetHeader>
-        <div className="flex flex-col justify-between gap-y-2 px-2 py-6 font-semibold">
-          <p className="text-3xl">Hi there! 👋</p>
-          <p className=" text-lg">Let&apos;s get you started</p>
+        <div className="flex items-center gap-x-2">
+          <Button
+            variant="transparent"
+            size="icon"
+            onClick={() => setScreen("selection")}
+          >
+            <ArrowLeftIcon />
+          </Button>
+          <p>Inbox</p>
         </div>
       </WidgetHeader>
       <div className="flex flex-1 flex-col  justify-center gap-y-4 p-4 ">
         <p className="tex-sm">Inbox</p>
       </div>
+      <WidgetFooter />
     </>
   );
 };
