@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@workspace/ui/components/input";
 import { api } from "@workspace/backend/_generated/api";
 import { Button } from "@workspace/ui/components/button";
-import { Doc, Id } from "@workspace/backend/_generated/dataModel";
+import { Doc } from "@workspace/backend/_generated/dataModel";
 
 import {
   contactSessionIdAtomFamily,
