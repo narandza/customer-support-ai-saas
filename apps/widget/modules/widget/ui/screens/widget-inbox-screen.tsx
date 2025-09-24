@@ -15,8 +15,8 @@ export const WidgetInboxScreen = () => {
           <p className=" text-lg">Let&apos;s get you started</p>
         </div>
       </WidgetHeader>
-      <div className="flex flex-1 flex-col items-center justify-center gap-y-4 p-4 text-muted-foreground">
-        Inbox
+      <div className="flex flex-1 flex-col  justify-center gap-y-4 p-4 ">
+        <p className="tex-sm">Inbox</p>
       </div>
     </>
   );
