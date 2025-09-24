@@ -1,11 +1,10 @@
 "use client";
 
 import { useMemo } from "react";
+import { cn } from "@workspace/ui/lib/utils";
 import { glass } from "@dicebear/collection";
 import { createAvatar } from "@dicebear/core";
 import { Avatar, AvatarImage } from "@workspace/ui/components/avatar";
-
-import { cn } from "../lib/utils.js";
 
 interface DicebearAvatarProps {
   seed: string;
