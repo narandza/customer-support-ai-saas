@@ -4,12 +4,31 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { AlertTriangleIcon, ArrowLeftIcon } from "lucide-react";
 
 import { WidgetHeader } from "../components/widget-header";
-import { errorMessageAtom, screenAtom } from "../../atoms/widget-atoms";
+import {
+  contactSessionIdAtomFamily,
+  errorMessageAtom,
+  organizationIdAtom,
+  screenAtom,
+} from "../../atoms/widget-atoms";
 import { WidgetFooter } from "../components/widget-footer";
 import { Button } from "@workspace/ui/components/button";
+import { usePaginatedQuery } from "convex/react";
+import { api } from "@workspace/backend/_generated/api";
 
 export const WidgetInboxScreen = () => {
   const setScreen = useSetAtom(screenAtom);
+
+  const organizationId = useAtomValue(organizationIdAtom);
+  const contactSessionId = useAtomValue(
+    contactSessionIdAtomFamily(organizationId || "")
+  );
+
+  const conversations = usePaginatedQuery(
+    api.public.conversations.getMany,
+    contactSessionId ? { contactSessionId } : "skip",
+    { initialNumItems: 10 }
+  );
+
   return (
     <>
       <WidgetHeader>
@@ -25,7 +44,7 @@ export const WidgetInboxScreen = () => {
         </div>
       </WidgetHeader>
       <div className="flex flex-1 flex-col  justify-center gap-y-4 p-4 ">
-        <p className="tex-sm">Inbox</p>
+        {JSON.stringify(conversations)}
       </div>
       <WidgetFooter />
     </>
