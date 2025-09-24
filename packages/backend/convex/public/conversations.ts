@@ -12,10 +12,9 @@ export const getMany = query({
     paginationOpts: paginationOptsValidator,
   },
   handler: async (ctx, args) => {
-    // TODO: Rename all instances to contactSession
-    const session = await ctx.db.get(args.contactSessionId);
+    const contactSession = await ctx.db.get(args.contactSessionId);
 
-    if (!session || session.expiresAt < Date.now()) {
+    if (!contactSession || contactSession.expiresAt < Date.now()) {
       throw new ConvexError({
         code: "UNAUTHORIZED",
         message: "Invalid session",
@@ -67,9 +66,9 @@ export const getOne = query({
     contactSessionId: v.id("contactSessions"),
   },
   handler: async (ctx, args) => {
-    const session = await ctx.db.get(args.contactSessionId);
+    const contactSession = await ctx.db.get(args.contactSessionId);
 
-    if (!session || session.expiresAt < Date.now()) {
+    if (!contactSession || contactSession.expiresAt < Date.now()) {
       throw new ConvexError({
         code: "UNAUTHORIZED",
         message: "Invalid session",
@@ -85,7 +84,7 @@ export const getOne = query({
       });
     }
 
-    if (conversation.contactSessionId !== session._id) {
+    if (conversation.contactSessionId !== contactSession._id) {
       throw new ConvexError({
         code: "UNAUTHORIZED",
         message: "Incorrect session",
@@ -106,9 +105,9 @@ export const create = mutation({
     contactSessionId: v.id("contactSessions"),
   },
   handler: async (ctx, args) => {
-    const session = await ctx.db.get(args.contactSessionId);
+    const contactSession = await ctx.db.get(args.contactSessionId);
 
-    if (!session || session.expiresAt < Date.now()) {
+    if (!contactSession || contactSession.expiresAt < Date.now()) {
       throw new ConvexError({
         code: "UNAUTHORIZED",
         message: "Invalid session",
@@ -129,7 +128,7 @@ export const create = mutation({
     });
 
     const conversationId = await ctx.db.insert("conversations", {
-      contactSessionId: session._id,
+      contactSessionId: contactSession._id,
       status: "unresolved",
       organizationId: args.organizationId,
       threadId,
