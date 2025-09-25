@@ -1,7 +1,7 @@
 import { ArrowRightIcon, ArrowUpIcon, CheckIcon } from "lucide-react";
 import { cn } from "@workspace/ui/lib/utils";
 
-interface ConversationStatusProps {
+interface ConversationStatusIconProps {
   status: "unresolved" | "escalated" | "resolved";
 }
 
@@ -20,7 +20,9 @@ const statusConfig = {
   },
 } as const;
 
-export const ConversationStatus = ({ status }: ConversationStatusProps) => {
+export const ConversationStatusIcon = ({
+  status,
+}: ConversationStatusIconProps) => {
   const config = statusConfig[status];
   const Icon = config.icon;
 
