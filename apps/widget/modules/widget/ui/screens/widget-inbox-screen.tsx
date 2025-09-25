@@ -14,6 +14,7 @@ import { WidgetFooter } from "../components/widget-footer";
 import { Button } from "@workspace/ui/components/button";
 import { usePaginatedQuery } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
+import { formatDistanceToNow } from "date-fns";
 
 export const WidgetInboxScreen = () => {
   const setScreen = useSetAtom(screenAtom);
@@ -59,7 +60,14 @@ export const WidgetInboxScreen = () => {
               <div className="flex w-full. flex-col gap-4 overflow-hidden text-start">
                 <div className="flex w-full items-center justify-between gap-x-2">
                   <p className="text-muted-foreground text-xs">Chat</p>
-                  <p className="text-muted-foreground text-xs">{}</p>
+                  <p className="text-muted-foreground text-xs">
+                    {formatDistanceToNow(new Date(conversation._creationTime))}
+                  </p>
+                </div>
+                <div className="flex w-full items-center justify-between gap-x-2">
+                  <p className=" truncate text-sm">
+                    {conversation.lastMessage?.text}
+                  </p>
                 </div>
               </div>
             </Button>
