@@ -29,7 +29,7 @@ export const ConversationStatusIcon = ({
   return (
     <div
       className={cn(
-        "flex items-center justify-center rounded-full p-1.5",
+        "flex items-center justify-center rounded-full p-2",
         config.bgColor
       )}
     >
