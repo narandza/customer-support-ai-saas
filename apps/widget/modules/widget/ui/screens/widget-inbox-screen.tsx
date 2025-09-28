@@ -46,7 +46,7 @@ export const WidgetInboxScreen = () => {
           <p>Inbox</p>
         </div>
       </WidgetHeader>
-      <div className="flex flex-1 flex-col  justify-center gap-y-4 p-4 ">
+      <div className="flex flex-1 flex-col gap-y-4 p-4 ">
         {conversations.results.length > 0 &&
           conversations.results.map((conversation) => (
             <Button
