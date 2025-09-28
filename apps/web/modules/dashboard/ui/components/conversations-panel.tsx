@@ -1,6 +1,8 @@
 "use client";
 
+import { getCountryFromTimezone } from "@/lib/country-utils";
 import { api } from "@workspace/backend/_generated/api";
+import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import {
   Select,
@@ -9,10 +11,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select";
+import { cn } from "@workspace/ui/lib/utils";
 import { usePaginatedQuery } from "convex/react";
 import { ArrowRightIcon, ArrowUpIcon, CheckIcon, ListIcon } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export const ConversationsPanel = () => {
+  const pathname = usePathname();
+
   const conversations = usePaginatedQuery(
     api.private.conversations.getMany,
     {
@@ -60,7 +67,42 @@ export const ConversationsPanel = () => {
       </div>
       <ScrollArea className="max-h-[calc(100vh-53px)] ">
         <div className="flex w-full flex-1/2 flex-col text-sm">
-          {JSON.stringify(conversations)}
+          {conversations.results.map((conversation) => {
+            const isLastMessageFromOperator =
+              conversation.lastMessage?.message.role !== "user";
+
+            const country = getCountryFromTimezone(
+              conversation.contactSession.metadata?.timezone
+            );
+
+            const countryFlagUrl = "/logo.svg";
+
+            return (
+              <Link
+                href={`/conversations/${conversation._id}`}
+                key={conversation._id}
+                className={cn(
+                  "relative flex cursor-pointer items-start gap-3 border-b p-4 py-5 text-sm leading-tight hover:bg-accent hover:text-accent-foreground",
+                  pathname === `/conversations/${conversation._id}` &&
+                    "bg-accent text-accent-foreground"
+                )}
+              >
+                <div
+                  className={cn(
+                    "-translate-y-1/2 absolute top-1/2 left-0 h-[64%] w-1 rounded-r-full  bg-neutral-300 opacity-0 transition-opacity",
+                    pathname === `/conversations/${conversation._id}` &&
+                      "opacity-100"
+                  )}
+                />
+
+                <DicebearAvatar
+                  seed={conversation.contactSession._id}
+                  size={40} // TODO: magic number
+                  className="shrink-0"
+                />
+              </Link>
+            );
+          })}
         </div>
       </ScrollArea>
     </div>
