@@ -1,5 +1,6 @@
 "use client";
 
+import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import {
   Select,
   SelectContent,
@@ -45,6 +46,7 @@ export const ConversationsPanel = () => {
           </SelectContent>
         </Select>
       </div>
+      <ScrollArea className="max-h-[calc(100vh-53px)]"></ScrollArea>
     </div>
   );
 };
