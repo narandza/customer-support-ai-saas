@@ -13,9 +13,17 @@ import {
 } from "@workspace/ui/components/select";
 import { cn } from "@workspace/ui/lib/utils";
 import { usePaginatedQuery } from "convex/react";
-import { ArrowRightIcon, ArrowUpIcon, CheckIcon, ListIcon } from "lucide-react";
+import {
+  ArrowRightIcon,
+  ArrowUpIcon,
+  CheckIcon,
+  CornerUpLeft,
+  CornerUpLeftIcon,
+  ListIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { formatDistanceToNow } from "date-fns";
 
 export const ConversationsPanel = () => {
   const pathname = usePathname();
@@ -100,6 +108,31 @@ export const ConversationsPanel = () => {
                   size={40} // TODO: magic number
                   className="shrink-0"
                 />
+                <div className="flex-1">
+                  <div className="flex w-full items-center gap-2">
+                    <span className="truncate font-bold">
+                      {conversation.contactSession.name}
+                    </span>
+                    <span className="ml-auto shrink-0 text-muted-foreground text-xs">
+                      {formatDistanceToNow(conversation._creationTime)}
+                    </span>
+                  </div>
+                </div>
+                <div className="mt-1 flex items-center justify-between gap-2">
+                  <div className="flex w-0 grow items-center gap-1">
+                    {isLastMessageFromOperator && (
+                      <CornerUpLeftIcon className="size-3 shrink-0 text-muted-foreground" />
+                    )}
+                    <span
+                      className={cn(
+                        "line-clamp-1 text-muted-foreground text-xs",
+                        !isLastMessageFromOperator && "font-bold text-black"
+                      )}
+                    >
+                      {conversation.lastMessage?.text}
+                    </span>
+                  </div>
+                </div>
               </Link>
             );
           })}
