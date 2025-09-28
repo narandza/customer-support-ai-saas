@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select";
-import { ListIcon } from "lucide-react";
+import { ArrowRightIcon, ArrowUpIcon, CheckIcon, ListIcon } from "lucide-react";
 
 export const ConversationsPanel = () => {
   return (
@@ -22,6 +22,24 @@ export const ConversationsPanel = () => {
               <div className="flex items-center gap-2">
                 <ListIcon className="size-4" />
                 <span className="">All</span>
+              </div>
+            </SelectItem>
+            <SelectItem value="unresolved">
+              <div className="flex items-center gap-2">
+                <ArrowRightIcon className="size-4" />
+                <span className="">Unresolved</span>
+              </div>
+            </SelectItem>
+            <SelectItem value="escalated">
+              <div className="flex items-center gap-2">
+                <ArrowUpIcon className="size-4" />
+                <span className="">Escalated</span>
+              </div>
+            </SelectItem>
+            <SelectItem value="resolved">
+              <div className="flex items-center gap-2">
+                <CheckIcon className="size-4" />
+                <span className="">Resolved</span>
               </div>
             </SelectItem>
           </SelectContent>
