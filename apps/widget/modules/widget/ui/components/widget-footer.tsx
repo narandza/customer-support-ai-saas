@@ -1,7 +1,8 @@
 import { cn } from "@workspace/ui/lib/utils";
+import { useAtomValue, useSetAtom } from "jotai";
 import { HomeIcon, InboxIcon } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";
-import { useAtomValue, useSetAtom } from "jotai";
+
 import { screenAtom } from "../../atoms/widget-atoms";
 
 export const WidgetFooter = () => {

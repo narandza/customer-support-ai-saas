@@ -1,23 +1,23 @@
 "use client";
 
+import { formatDistanceToNow } from "date-fns";
+import { usePaginatedQuery } from "convex/react";
 import { useAtomValue, useSetAtom } from "jotai";
+import { api } from "@workspace/backend/_generated/api";
+import { Button } from "@workspace/ui/components/button";
 import { AlertTriangleIcon, ArrowLeftIcon } from "lucide-react";
+import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
+import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
+import { ConversationStatusIcon } from "@workspace/ui/components/conversation-status-icon";
 
-import { WidgetHeader } from "../components/widget-header";
 import {
   contactSessionIdAtomFamily,
   conversationIdAtom,
   organizationIdAtom,
   screenAtom,
 } from "../../atoms/widget-atoms";
+import { WidgetHeader } from "../components/widget-header";
 import { WidgetFooter } from "../components/widget-footer";
-import { Button } from "@workspace/ui/components/button";
-import { usePaginatedQuery } from "convex/react";
-import { api } from "@workspace/backend/_generated/api";
-import { formatDistanceToNow } from "date-fns";
-import { ConversationStatusIcon } from "@workspace/ui/components/conversation-status-icon";
-import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
-import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
 
 export const WidgetInboxScreen = () => {
   const setScreen = useSetAtom(screenAtom);
