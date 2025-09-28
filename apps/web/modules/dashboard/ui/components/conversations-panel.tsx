@@ -46,7 +46,9 @@ export const ConversationsPanel = () => {
           </SelectContent>
         </Select>
       </div>
-      <ScrollArea className="max-h-[calc(100vh-53px)]"></ScrollArea>
+      <ScrollArea className="max-h-[calc(100vh-53px)] ">
+        <div className="flex w-full flex-1/2 flex-col text-sm"></div>
+      </ScrollArea>
     </div>
   );
 };
