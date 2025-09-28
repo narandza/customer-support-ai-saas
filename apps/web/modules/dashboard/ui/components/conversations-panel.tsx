@@ -1,5 +1,6 @@
 "use client";
 
+import { api } from "@workspace/backend/_generated/api";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import {
   Select,
@@ -8,9 +9,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select";
+import { usePaginatedQuery } from "convex/react";
 import { ArrowRightIcon, ArrowUpIcon, CheckIcon, ListIcon } from "lucide-react";
 
 export const ConversationsPanel = () => {
+  const conversations = usePaginatedQuery(
+    api.private.conversations.getMany,
+    {
+      status: undefined,
+    },
+    {
+      initialNumItems: 10,
+    }
+  );
+
   return (
     <div className="flex h-full w-full flex-col bg-background text-sidebar-foreground">
       <div className="flex flex-col gap-3.5 border-b p-2">
@@ -47,7 +59,9 @@ export const ConversationsPanel = () => {
         </Select>
       </div>
       <ScrollArea className="max-h-[calc(100vh-53px)] ">
-        <div className="flex w-full flex-1/2 flex-col text-sm"></div>
+        <div className="flex w-full flex-1/2 flex-col text-sm">
+          {JSON.stringify(conversations)}
+        </div>
       </ScrollArea>
     </div>
   );
