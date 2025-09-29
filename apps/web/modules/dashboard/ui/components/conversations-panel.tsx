@@ -24,6 +24,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
+import { ConversationStatusIcon } from "@workspace/ui/components/conversation-status-icon";
 
 export const ConversationsPanel = () => {
   const pathname = usePathname();
@@ -132,6 +133,7 @@ export const ConversationsPanel = () => {
                       {conversation.lastMessage?.text}
                     </span>
                   </div>
+                  <ConversationStatusIcon status={conversation.status} />
                 </div>
               </Link>
             );
