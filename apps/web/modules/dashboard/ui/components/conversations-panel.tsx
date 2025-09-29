@@ -74,8 +74,9 @@ export const ConversationsPanel = () => {
           </SelectContent>
         </Select>
       </div>
+      {/* TODO: Fix  */}
       <ScrollArea className="max-h-[calc(100vh-53px)] ">
-        <div className="flex w-full flex-1/2 flex-col text-sm">
+        <div className="flex  flex-1/2 flex-col text-sm">
           {conversations.results.map((conversation) => {
             const isLastMessageFromOperator =
               conversation.lastMessage?.message?.role !== "user";
