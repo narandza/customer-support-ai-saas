@@ -1,6 +1,6 @@
 "use client";
 
-import { getCountryFromTimezone } from "@/lib/country-utils";
+import { getCountryFlagUrl, getCountryFromTimezone } from "@/lib/country-utils";
 import { api } from "@workspace/backend/_generated/api";
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
@@ -78,13 +78,15 @@ export const ConversationsPanel = () => {
         <div className="flex w-full flex-1/2 flex-col text-sm">
           {conversations.results.map((conversation) => {
             const isLastMessageFromOperator =
-              conversation.lastMessage?.message.role !== "user";
+              conversation.lastMessage?.message?.role !== "user";
 
             const country = getCountryFromTimezone(
               conversation.contactSession.metadata?.timezone
             );
 
-            const countryFlagUrl = "/logo.svg";
+            const countryFlagUrl = country?.code
+              ? getCountryFlagUrl(country.code)
+              : undefined;
 
             return (
               <Link
@@ -106,6 +108,7 @@ export const ConversationsPanel = () => {
 
                 <DicebearAvatar
                   seed={conversation.contactSession._id}
+                  badgeImageUrl={countryFlagUrl}
                   size={40} // TODO: magic number
                   className="shrink-0"
                 />
