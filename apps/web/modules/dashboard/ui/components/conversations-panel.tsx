@@ -25,14 +25,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import { ConversationStatusIcon } from "@workspace/ui/components/conversation-status-icon";
+import { useAtomValue, useSetAtom } from "jotai/react";
+import { statusFilterAtom } from "../../atoms";
 
 export const ConversationsPanel = () => {
   const pathname = usePathname();
 
+  const statusFilter = useAtomValue(statusFilterAtom);
+  const setStatusFilter = useSetAtom(statusFilterAtom);
+
   const conversations = usePaginatedQuery(
     api.private.conversations.getMany,
     {
-      status: undefined,
+      status: statusFilter === "all" ? undefined : statusFilter,
     },
     {
       initialNumItems: 10,
@@ -42,7 +47,15 @@ export const ConversationsPanel = () => {
   return (
     <div className="flex h-full w-full flex-col bg-background text-sidebar-foreground">
       <div className="flex flex-col gap-3.5 border-b p-2">
-        <Select defaultValue="all" onValueChange={() => {}} value="all">
+        <Select
+          defaultValue="all"
+          onValueChange={(value) =>
+            setStatusFilter(
+              value as "unresolved" | "escalated" | "resolved" | "all"
+            )
+          }
+          value={statusFilter}
+        >
           <SelectTrigger className="h-8 border-none px-1.5 shadow-none ring-0 hover:bg-accent hover:text-accent-foreground focus-visible:ring-0">
             <SelectValue placeholder="Filter" />
           </SelectTrigger>
