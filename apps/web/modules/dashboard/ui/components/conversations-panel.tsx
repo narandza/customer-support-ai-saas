@@ -1,9 +1,13 @@
 "use client";
 
-import { getCountryFlagUrl, getCountryFromTimezone } from "@/lib/country-utils";
-import { api } from "@workspace/backend/_generated/api";
-import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
-import { ScrollArea } from "@workspace/ui/components/scroll-area";
+import {
+  ArrowRightIcon,
+  ArrowUpIcon,
+  CheckIcon,
+  CornerUpLeftIcon,
+  ListIcon,
+} from "lucide-react";
+import Link from "next/link";
 import {
   Select,
   SelectContent,
@@ -12,23 +16,19 @@ import {
   SelectValue,
 } from "@workspace/ui/components/select";
 import { cn } from "@workspace/ui/lib/utils";
-import { usePaginatedQuery } from "convex/react";
-import {
-  ArrowRightIcon,
-  ArrowUpIcon,
-  CheckIcon,
-  CornerUpLeft,
-  CornerUpLeftIcon,
-  ListIcon,
-} from "lucide-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
-import { ConversationStatusIcon } from "@workspace/ui/components/conversation-status-icon";
+import { usePaginatedQuery } from "convex/react";
 import { useAtomValue, useSetAtom } from "jotai/react";
-import { statusFilterAtom } from "../../atoms";
+import { api } from "@workspace/backend/_generated/api";
+import { ScrollArea } from "@workspace/ui/components/scroll-area";
+import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
+import { getCountryFlagUrl, getCountryFromTimezone } from "@/lib/country-utils";
 import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
+import { ConversationStatusIcon } from "@workspace/ui/components/conversation-status-icon";
+
+import { statusFilterAtom } from "../../atoms";
 
 export const ConversationsPanel = () => {
   const pathname = usePathname();

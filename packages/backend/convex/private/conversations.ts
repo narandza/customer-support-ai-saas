@@ -1,10 +1,10 @@
 import { ConvexError, v } from "convex/values";
-import { paginationOptsValidator, PaginationResult } from "convex/server";
 import { MessageDoc } from "@convex-dev/agent";
+import { paginationOptsValidator, PaginationResult } from "convex/server";
 
 import { query } from "../_generated/server";
-import { supportAgent } from "../system/ai/agents/supportAgent";
 import { Doc } from "../_generated/dataModel";
+import { supportAgent } from "../system/ai/agents/supportAgent";
 
 export const getMany = query({
   args: {
@@ -82,7 +82,6 @@ export const getMany = query({
         };
       })
     );
-
     const validConversations = conversationsWithAdditionalData.filter(
       (conv): conv is NonNullable<typeof conv> => conv !== null
     );
