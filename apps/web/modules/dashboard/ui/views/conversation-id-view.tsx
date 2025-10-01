@@ -40,11 +40,11 @@ export const ConversationIdView = ({
 
   return (
     <div className="flex h-full flex-col bg-muted">
-      <div className="flex items-center justify-between border-b bg-background p-2.5">
+      <header className="flex items-center justify-between border-b bg-background p-2.5">
         <Button variant="ghost" size="sm">
           <MoreHorizontalIcon />
         </Button>
-      </div>
+      </header>
     </div>
   );
 };
