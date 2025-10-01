@@ -21,6 +21,7 @@ import { formatDistanceToNow } from "date-fns";
 import { usePaginatedQuery } from "convex/react";
 import { useAtomValue, useSetAtom } from "jotai/react";
 import { api } from "@workspace/backend/_generated/api";
+import { Skeleton } from "@workspace/ui/components/skeleton";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
@@ -29,7 +30,6 @@ import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-
 import { ConversationStatusIcon } from "@workspace/ui/components/conversation-status-icon";
 
 import { statusFilterAtom } from "../../atoms";
-import { Skeleton } from "@workspace/ui/components/skeleton";
 
 export const ConversationsPanel = () => {
   const pathname = usePathname();
