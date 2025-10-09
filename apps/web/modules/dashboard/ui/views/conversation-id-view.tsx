@@ -5,7 +5,11 @@ import { Id } from "@workspace/backend/_generated/dataModel";
 import { Button } from "@workspace/ui/components/button";
 import { useQuery } from "convex/react";
 import { MoreHorizontalIcon } from "lucide-react";
-import { AIConversation } from "@workspace/ui/components/ai/conversation";
+import {
+  AIConversation,
+  AIConversation,
+  AIConversationContent,
+} from "@workspace/ui/components/ai/conversation";
 import { AIInput } from "@workspace/ui/components/ai/input";
 import { AIMessage } from "@workspace/ui/components/ai/message";
 import { AIResponse } from "@workspace/ui/components/ai/response";
@@ -45,6 +49,9 @@ export const ConversationIdView = ({
           <MoreHorizontalIcon />
         </Button>
       </header>
+      <AIConversation className="max-h-[calc(100vh-180px)]">
+        <AIConversationContent></AIConversationContent>
+      </AIConversation>
     </div>
   );
 };
