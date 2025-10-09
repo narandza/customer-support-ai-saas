@@ -7,15 +7,20 @@ import { useQuery } from "convex/react";
 import { MoreHorizontalIcon } from "lucide-react";
 import {
   AIConversation,
-  AIConversation,
   AIConversationContent,
+  AIConversationScrollButton,
 } from "@workspace/ui/components/ai/conversation";
 import { AIInput } from "@workspace/ui/components/ai/input";
-import { AIMessage } from "@workspace/ui/components/ai/message";
+import {
+  AIMessage,
+  AIMessageContent,
+} from "@workspace/ui/components/ai/message";
 import { AIResponse } from "@workspace/ui/components/ai/response";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
+import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 
 interface ConversationIdViewProps {
   conversationId: Id<"conversations">;
@@ -31,6 +36,12 @@ export const ConversationIdView = ({
   const conversation = useQuery(api.private.conversations.getOne, {
     conversationId,
   });
+
+  const messages = useThreadMessages(
+    api.private.messages.getMany,
+    conversation?.threadId ? { threadId: conversation.threadId } : "skip",
+    { initialNumItems: 10 }
+  );
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,7 +62,25 @@ export const ConversationIdView = ({
         </Button>
       </header>
       <AIConversation className="max-h-[calc(100vh-180px)]">
-        <AIConversationContent></AIConversationContent>
+        <AIConversationContent>
+          {toUIMessages(messages.results ?? []).map((message) => (
+            <AIMessage
+              key={message.id}
+              from={message.role === "user" ? "assistant" : "user"}
+            >
+              <AIMessageContent>
+                <AIResponse>{message.content}</AIResponse>
+              </AIMessageContent>
+              {message.role === "user" && (
+                <DicebearAvatar
+                  seed={conversation?.contactSessionId ?? ""}
+                  size={32}
+                /> // TODO: Magic number
+              )}
+            </AIMessage>
+          ))}
+        </AIConversationContent>
+        <AIConversationScrollButton />
       </AIConversation>
     </div>
   );
