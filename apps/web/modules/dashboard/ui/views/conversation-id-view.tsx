@@ -1,15 +1,7 @@
 "use client";
 
-import { api } from "@workspace/backend/_generated/api";
-import { Id } from "@workspace/backend/_generated/dataModel";
-import { Button } from "@workspace/ui/components/button";
-import { useMutation, useQuery } from "convex/react";
-import { MoreHorizontalIcon, Wand2Icon } from "lucide-react";
-import {
-  AIConversation,
-  AIConversationContent,
-  AIConversationScrollButton,
-} from "@workspace/ui/components/ai/conversation";
+import z from "zod";
+import { useForm } from "react-hook-form";
 import {
   AIInput,
   AIInputButton,
@@ -22,13 +14,21 @@ import {
   AIMessage,
   AIMessageContent,
 } from "@workspace/ui/components/ai/message";
-import { AIResponse } from "@workspace/ui/components/ai/response";
-import z from "zod";
-import { useForm } from "react-hook-form";
+import {
+  AIConversation,
+  AIConversationContent,
+  AIConversationScrollButton,
+} from "@workspace/ui/components/ai/conversation";
+import { useMutation, useQuery } from "convex/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
-import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
+import { api } from "@workspace/backend/_generated/api";
+import { Button } from "@workspace/ui/components/button";
+import { Id } from "@workspace/backend/_generated/dataModel";
+import { MoreHorizontalIcon, Wand2Icon } from "lucide-react";
 import { Form, FormField } from "@workspace/ui/components/form";
+import { AIResponse } from "@workspace/ui/components/ai/response";
+import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
+import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
 
 interface ConversationIdViewProps {
   conversationId: Id<"conversations">;

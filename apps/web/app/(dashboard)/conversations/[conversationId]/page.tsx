@@ -1,5 +1,5 @@
-import { ConversationIdView } from "@/modules/dashboard/ui/views/conversation-id-view";
 import { Id } from "@workspace/backend/_generated/dataModel";
+import { ConversationIdView } from "@/modules/dashboard/ui/views/conversation-id-view";
 
 const Page = async ({
   params,

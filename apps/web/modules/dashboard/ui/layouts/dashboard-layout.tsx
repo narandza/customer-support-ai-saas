@@ -1,10 +1,9 @@
+import { Provider } from "jotai";
 import { cookies } from "next/headers";
-import { SidebarProvider } from "@workspace/ui/components/sidebar";
-
 import { OrgGuard } from "@/modules/auth/ui/components/org-guard";
+import { SidebarProvider } from "@workspace/ui/components/sidebar";
 import { AuthGuard } from "@/modules/auth/ui/components/auth-guard";
 import { DashboardSidebar } from "@/modules/dashboard/ui/components/dashboard-sidebar";
-import { Provider } from "jotai";
 
 export const DashboardLayout = async ({
   children,
