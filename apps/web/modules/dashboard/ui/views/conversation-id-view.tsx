@@ -3,7 +3,7 @@
 import { api } from "@workspace/backend/_generated/api";
 import { Id } from "@workspace/backend/_generated/dataModel";
 import { Button } from "@workspace/ui/components/button";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { MoreHorizontalIcon, Wand2Icon } from "lucide-react";
 import {
   AIConversation,
@@ -58,8 +58,19 @@ export const ConversationIdView = ({
     },
   });
 
+  const createMessage = useMutation(api.private.messages.create);
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      await createMessage({
+        conversationId,
+        prompt: values.message,
+      });
+
+      form.reset();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
