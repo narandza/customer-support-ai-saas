@@ -30,6 +30,7 @@ import { AIResponse } from "@workspace/ui/components/ai/response";
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
 import { ConversationStatusButton } from "../components/conversation-status-button";
+import { useState } from "react";
 
 interface ConversationIdViewProps {
   conversationId: Id<"conversations">;
@@ -74,6 +75,7 @@ export const ConversationIdView = ({
     }
   };
 
+  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const updateConversationStatus = useMutation(
     api.private.conversations.updateStatus
   );
@@ -82,6 +84,8 @@ export const ConversationIdView = ({
       return;
     }
 
+    setIsUpdatingStatus(true);
+
     let newStatus: "unresolved" | "resolved" | "escalated";
 
     if (conversation.status === "unresolved") {
@@ -89,7 +93,7 @@ export const ConversationIdView = ({
     } else if (conversation.status === "escalated") {
       newStatus = "resolved";
     } else {
-      newStatus = "resolved";
+      newStatus = "unresolved";
     }
 
     try {
@@ -99,6 +103,8 @@ export const ConversationIdView = ({
       });
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsUpdatingStatus(false);
     }
   };
 
@@ -112,6 +118,7 @@ export const ConversationIdView = ({
           <ConversationStatusButton
             onClick={handleToggleStatus}
             status={conversation?.status}
+            disabled={isUpdatingStatus}
           />
         )}
       </header>
