@@ -175,7 +175,7 @@ export const ConversationIdView = ({
             />
             <AIInputToolbar>
               <AIInputTools>
-                <AIInputButton>
+                <AIInputButton disabled={conversation?.status === "resolved"}>
                   <Wand2Icon /> Enhance
                 </AIInputButton>
               </AIInputTools>
