@@ -29,6 +29,7 @@ import { Form, FormField } from "@workspace/ui/components/form";
 import { AIResponse } from "@workspace/ui/components/ai/response";
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
+import { ConversationStatusButton } from "../components/conversation-status-button";
 
 interface ConversationIdViewProps {
   conversationId: Id<"conversations">;
@@ -73,12 +74,46 @@ export const ConversationIdView = ({
     }
   };
 
+  const updateConversationStatus = useMutation(
+    api.private.conversations.updateStatus
+  );
+  const handleToggleStatus = async () => {
+    if (!conversation) {
+      return;
+    }
+
+    let newStatus: "unresolved" | "resolved" | "escalated";
+
+    if (conversation.status === "unresolved") {
+      newStatus = "escalated";
+    } else if (conversation.status === "escalated") {
+      newStatus = "resolved";
+    } else {
+      newStatus = "resolved";
+    }
+
+    try {
+      await updateConversationStatus({
+        conversationId,
+        status: newStatus,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="flex h-full flex-col bg-muted">
       <header className="flex items-center justify-between border-b bg-background p-2.5">
         <Button variant="ghost" size="sm">
           <MoreHorizontalIcon />
         </Button>
+        {!!conversation && (
+          <ConversationStatusButton
+            onClick={handleToggleStatus}
+            status={conversation?.status}
+          />
+        )}
       </header>
       <AIConversation className="max-h-[calc(100vh-180px)]">
         <AIConversationContent>
