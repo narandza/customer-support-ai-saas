@@ -31,6 +31,8 @@ import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
 import { ConversationStatusButton } from "../components/conversation-status-button";
 import { useState } from "react";
+import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
+import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
 
 interface ConversationIdViewProps {
   conversationId: Id<"conversations">;
@@ -50,8 +52,15 @@ export const ConversationIdView = ({
   const messages = useThreadMessages(
     api.private.messages.getMany,
     conversation?.threadId ? { threadId: conversation.threadId } : "skip",
-    { initialNumItems: 10 }
+    { initialNumItems: 10 } // TODO: Magic num
   );
+
+  const { topElementRef, handleLoadMore, canLoadMore, isLoadingMore } =
+    useInfiniteScroll({
+      status: messages.status,
+      loadMore: messages.loadMore,
+      loadSize: 10, // TODO: Magic num
+    });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -124,6 +133,12 @@ export const ConversationIdView = ({
       </header>
       <AIConversation className="max-h-[calc(100vh-180px)]">
         <AIConversationContent>
+          <InfiniteScrollTrigger
+            canLoadMore={canLoadMore}
+            isLoadingMore={isLoadingMore}
+            onLoadMore={handleLoadMore}
+            ref={topElementRef}
+          />
           {toUIMessages(messages.results ?? []).map((message) => (
             <AIMessage
               key={message.id}
