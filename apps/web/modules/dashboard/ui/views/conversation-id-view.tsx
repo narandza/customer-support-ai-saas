@@ -135,6 +135,10 @@ export const ConversationIdView = ({
     }
   };
 
+  if (conversation === undefined || messages.status === "LoadingFirstPage") {
+    return <ConversationIdViewLoading />;
+  }
+
   return (
     <div className="flex h-full flex-col bg-muted">
       <header className="flex items-center justify-between border-b bg-background p-2.5">
