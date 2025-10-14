@@ -1,6 +1,7 @@
 "use client";
 
 import z from "zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   AIInput,
@@ -14,27 +15,26 @@ import {
   AIMessage,
   AIMessageContent,
 } from "@workspace/ui/components/ai/message";
+import { cn } from "@workspace/ui/lib/utils";
 import {
   AIConversation,
   AIConversationContent,
   AIConversationScrollButton,
 } from "@workspace/ui/components/ai/conversation";
-import { useAction, useMutation, useQuery } from "convex/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@workspace/backend/_generated/api";
 import { Button } from "@workspace/ui/components/button";
 import { Id } from "@workspace/backend/_generated/dataModel";
 import { MoreHorizontalIcon, Wand2Icon } from "lucide-react";
+import { Skeleton } from "@workspace/ui/components/skeleton";
 import { Form, FormField } from "@workspace/ui/components/form";
+import { useAction, useMutation, useQuery } from "convex/react";
 import { AIResponse } from "@workspace/ui/components/ai/response";
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
-import { ConversationStatusButton } from "../components/conversation-status-button";
-import { useState } from "react";
 import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
+import { ConversationStatusButton } from "../components/conversation-status-button";
 import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
-import { cn } from "@workspace/ui/lib/utils";
-import { Skeleton } from "@workspace/ui/components/skeleton";
 
 interface ConversationIdViewProps {
   conversationId: Id<"conversations">;

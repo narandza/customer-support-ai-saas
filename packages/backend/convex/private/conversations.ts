@@ -2,8 +2,8 @@ import { ConvexError, v } from "convex/values";
 import { MessageDoc } from "@convex-dev/agent";
 import { paginationOptsValidator, PaginationResult } from "convex/server";
 
-import { mutation, query } from "../_generated/server";
 import { Doc } from "../_generated/dataModel";
+import { mutation, query } from "../_generated/server";
 import { supportAgent } from "../system/ai/agents/supportAgent";
 
 export const updateStatus = mutation({

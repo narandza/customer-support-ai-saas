@@ -1,3 +1,5 @@
+import { generateText } from "ai";
+import { openai } from "@ai-sdk/openai";
 import { ConvexError, v } from "convex/values";
 import { saveMessage } from "@convex-dev/agent";
 import { paginationOptsValidator } from "convex/server";
@@ -5,8 +7,6 @@ import { paginationOptsValidator } from "convex/server";
 import { components, internal } from "../_generated/api";
 import { action, mutation, query } from "../_generated/server";
 import { supportAgent } from "../system/ai/agents/supportAgent";
-import { generateText } from "ai";
-import { openai } from "@ai-sdk/openai";
 
 export const enhanceResponse = action({
   args: {
