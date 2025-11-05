@@ -44,6 +44,10 @@ export async function extractTextContent(
   if (SUPPORTED_IMAGE_TYPES.some((type) => type === mimeType)) {
     return extractImageText(url);
   }
+
+  if (mimeType.toLocaleLowerCase().includes("pdf")) {
+    return extractPdfText(url, mimeType, filename);
+  }
 }
 
 async function extractImageText(url: string): Promise<string> {
@@ -54,6 +58,36 @@ async function extractImageText(url: string): Promise<string> {
       {
         role: "user",
         content: [{ type: "image", image: new URL(url) }],
+      },
+    ],
+  });
+
+  return result.text;
+}
+
+async function extractPdfText(
+  url: string,
+  mimeType: string,
+  filename: string
+): Promise<string> {
+  const result = await generateText({
+    model: AI_MODELS.pdf,
+    system: SYSTEM_PROMPTS.pdf,
+    messages: [
+      {
+        role: "user",
+        content: [
+          {
+            type: "file",
+            data: new URL(url),
+            mimeType,
+            filename,
+          },
+          {
+            type: "text",
+            text: "Extract the text from the PDF and print it without explaining you'll do so",
+          },
+        ],
       },
     ],
   });
