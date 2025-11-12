@@ -42,5 +42,16 @@ export const addFile = action({
     const { bytes, filename, category } = args;
 
     const mimeType = args.mimeType || guessMimeType(filename, bytes);
+
+    const blob = new Blob([bytes], { type: mimeType });
+
+    const storageId = await ctx.storage.store(blob);
+
+    const text = await extractTextContent(ctx, {
+      storageId,
+      filename,
+      bytes,
+      mimeType,
+    });
   },
 });

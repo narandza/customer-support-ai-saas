@@ -53,6 +53,8 @@ export async function extractTextContent(
   if (mimeType.toLocaleLowerCase().includes("text")) {
     return extractTextFileContent(ctx, storageId, bytes, mimeType);
   }
+
+  throw new Error(`Unsupported MIME type: ${mimeType}`);
 }
 
 async function extractImageText(url: string): Promise<string> {
