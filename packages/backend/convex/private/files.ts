@@ -4,6 +4,7 @@ import {
   guessMimeTypeFromExtension,
 } from "@convex-dev/rag";
 import { action } from "../_generated/server";
+import { extractTextContent } from "../lib/extractTextContent";
 
 function guessMimeType(filename: string, bytes: ArrayBuffer): string {
   return (
