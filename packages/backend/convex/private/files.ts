@@ -1,14 +1,15 @@
-import { ConvexError, v } from "convex/values";
 import {
   contentHashFromArrayBuffer,
   guessMimeTypeFromContents,
   guessMimeTypeFromExtension,
   vEntryId,
 } from "@convex-dev/rag";
-import { action, mutation } from "../_generated/server";
-import { extractTextContent } from "../lib/extractTextContent";
+import { ConvexError, v } from "convex/values";
+
 import rag from "../system/ai/rag";
 import { Id } from "../_generated/dataModel";
+import { action, mutation } from "../_generated/server";
+import { extractTextContent } from "../lib/extractTextContent";
 
 function guessMimeType(filename: string, bytes: ArrayBuffer): string {
   return (

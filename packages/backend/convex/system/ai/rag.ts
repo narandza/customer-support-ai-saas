@@ -1,5 +1,6 @@
-import { openai } from "@ai-sdk/openai";
 import { RAG } from "@convex-dev/rag";
+import { openai } from "@ai-sdk/openai";
+
 import { components } from "../../_generated/api";
 
 const rag = new RAG(components.rag, {

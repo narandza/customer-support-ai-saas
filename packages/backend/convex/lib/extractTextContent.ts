@@ -1,9 +1,9 @@
-import { openai } from "@ai-sdk/openai";
 import { generateText } from "ai";
-import type { StorageActionWriter } from "convex/server";
+import { openai } from "@ai-sdk/openai";
 import { assert } from "convex-helpers";
+import type { StorageActionWriter } from "convex/server";
+
 import { Id } from "../_generated/dataModel";
-import { mime } from "zod/v4";
 
 const AI_MODELS = {
   image: openai.chat("gpt-40-mini"),
