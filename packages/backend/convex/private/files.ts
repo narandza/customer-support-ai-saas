@@ -1,10 +1,12 @@
 import { ConvexError, v } from "convex/values";
 import {
+  contentHashFromArrayBuffer,
   guessMimeTypeFromContents,
   guessMimeTypeFromExtension,
 } from "@convex-dev/rag";
 import { action } from "../_generated/server";
 import { extractTextContent } from "../lib/extractTextContent";
+import rag from "../system/ai/rag";
 
 function guessMimeType(filename: string, bytes: ArrayBuffer): string {
   return (
@@ -54,5 +56,30 @@ export const addFile = action({
       bytes,
       mimeType,
     });
+
+    const { entryId, created } = await rag.add(ctx, {
+      // SUPER IMPORTANT: What search space to add this to. You cannot search across namespaces
+      // If not added, it will be considered global(we do not want this)
+      namespace: orgId,
+      text,
+      key: filename,
+      metadata: {
+        storageId,
+        uploadedBy: orgId,
+        filename,
+        category: category ?? null,
+      },
+      contentHash: await contentHashFromArrayBuffer(bytes), // To avoid re-inserting if the file content hasn't changed
+    });
+
+    if (!created) {
+      console.debug("entry already exists, skipping upload metadata");
+      await ctx.storage.delete(storageId);
+    }
+
+    return {
+      url: await ctx.storage.getUrl(storageId),
+      entryId,
+    };
   },
 });
