@@ -1,5 +1,7 @@
 import {
   contentHashFromArrayBuffer,
+  Entry,
+  EntryId,
   guessMimeTypeFromContents,
   guessMimeTypeFromExtension,
   vEntryId,
@@ -8,8 +10,9 @@ import { ConvexError, v } from "convex/values";
 
 import rag from "../system/ai/rag";
 import { Id } from "../_generated/dataModel";
-import { action, mutation } from "../_generated/server";
+import { action, mutation, query, QueryCtx } from "../_generated/server";
 import { extractTextContent } from "../lib/extractTextContent";
+import { paginationOptsValidator } from "convex/server";
 
 function guessMimeType(filename: string, bytes: ArrayBuffer): string {
   return (
@@ -146,3 +149,72 @@ export const addFile = action({
     };
   },
 });
+
+export const list = query({
+  args: {
+    category: v.optional(v.string()),
+    paginationOpts: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (identity === null) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Identity not found",
+      });
+    }
+
+    const orgId = identity.orgId as string;
+
+    if (!orgId) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Organization not found",
+      });
+    }
+
+    const namespace = await rag.getNamespace(ctx, {
+      namespace: orgId,
+    });
+
+    if (!namespace) {
+      return { page: [], isDone: true, continueCursor: "" };
+    }
+
+    const results = await rag.list(ctx, {
+      namespaceId: namespace.namespaceId,
+      paginationOpts: args.paginationOpts,
+    });
+
+    const files = await Promise.all(
+      results.page.map((entry) => convertEntryToPublicFile(ctx, entry))
+    );
+  },
+});
+
+export type PublicFile = {
+  id: EntryId;
+  name: string;
+  type: string;
+  size: string;
+  status: "ready" | "processing" | "error";
+  url: string | null;
+  category?: string;
+};
+
+type EntryMetadata = {
+  storageId: Id<"_storage">;
+  uploadedBy: string;
+  filename: string;
+  category: string | null;
+};
+
+async function convertEntryToPublicFile(
+  ctx: Pick<QueryCtx, "storage">,
+  entry: Entry
+): Promise<PublicFile> {
+  const metadata = entry.metadata as EntryMetadata | undefined;
+
+  const storageId = metadata?.storageId;
+}
