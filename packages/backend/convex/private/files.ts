@@ -134,7 +134,7 @@ export const addFile = action({
         uploadedBy: orgId, // Important for deletion
         filename,
         category: category ?? null,
-      },
+      } as EntryMetadata,
       contentHash: await contentHashFromArrayBuffer(bytes), // To avoid re-inserting if the file content hasn't changed
     });
 
@@ -211,10 +211,37 @@ type EntryMetadata = {
 };
 
 async function convertEntryToPublicFile(
-  ctx: Pick<QueryCtx, "storage">,
+  ctx: QueryCtx,
   entry: Entry
 ): Promise<PublicFile> {
   const metadata = entry.metadata as EntryMetadata | undefined;
 
   const storageId = metadata?.storageId;
+
+  let fileSize = "unknown"
+
+  if(storageId){
+    try{
+      const storageMetadata = await ctx.db.system.get(storageId)
+
+      if(storageMetadata){
+        fileSize = formatFileSize(storageMetadata.size)
+      }
+    }
+  }
+}
+
+
+function formatFileSize(bytes:number): string {
+  if(bytes === 0){
+    return "0 B"
+  }
+
+  const k  = 1024;
+
+  const sizes  = ["B", "KB", "MB", "GB"]
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return  `${Number.parseFloat((bytes /k ** i).toFixed(1))} ${sizes[i]}`
 }
