@@ -218,30 +218,55 @@ async function convertEntryToPublicFile(
 
   const storageId = metadata?.storageId;
 
-  let fileSize = "unknown"
+  let fileSize = "unknown";
 
-  if(storageId){
-    try{
-      const storageMetadata = await ctx.db.system.get(storageId)
+  if (storageId) {
+    try {
+      const storageMetadata = await ctx.db.system.get(storageId);
 
-      if(storageMetadata){
-        fileSize = formatFileSize(storageMetadata.size)
+      if (storageMetadata) {
+        fileSize = formatFileSize(storageMetadata.size);
       }
+    } catch (error) {
+      console.error("Failed to get storage metadata", error);
     }
   }
-}
 
+  const filename = entry.key || "unknown";
 
-function formatFileSize(bytes:number): string {
-  if(bytes === 0){
-    return "0 B"
+  const extension = filename.split(".").pop()?.toLowerCase() || "txt";
+
+  let status: "ready" | "processing" | "error" = "error";
+
+  if (entry.status === "ready") {
+    status = "ready";
+  } else if (entry.status === "pending") {
+    status = "processing";
   }
 
-  const k  = 1024;
+  const url = storageId ? await ctx.storage.getUrl(storageId) : null;
 
-  const sizes  = ["B", "KB", "MB", "GB"]
+  return {
+    id: entry.entryId,
+    name: filename,
+    type: extension,
+    size: fileSize,
+    status,
+    url,
+    category: metadata?.category || undefined,
+  };
+}
 
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
+function formatFileSize(bytes: number): string {
+  if (bytes === 0) {
+    return "0 B";
+  }
 
-  return  `${Number.parseFloat((bytes /k ** i).toFixed(1))} ${sizes[i]}`
+  const k = 1024;
+
+  const sizes = ["B", "KB", "MB", "GB"];
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return `${Number.parseFloat((bytes / k ** i).toFixed(1))} ${sizes[i]}`;
 }
