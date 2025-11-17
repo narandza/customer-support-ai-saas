@@ -190,6 +190,16 @@ export const list = query({
     const files = await Promise.all(
       results.page.map((entry) => convertEntryToPublicFile(ctx, entry))
     );
+
+    const filteredFiles = args.category
+      ? files.filter((file) => file.category === args.category)
+      : files;
+
+    return {
+      page: filteredFiles,
+      isDone: results.isDone,
+      continueCursor: results.continueCursor,
+    };
   },
 });
 
