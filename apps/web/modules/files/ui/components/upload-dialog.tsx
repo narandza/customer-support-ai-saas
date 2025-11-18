@@ -70,10 +70,24 @@ export const UploadDialog = ({
               setUploadForm((prev) => ({ ...prev, category: e.target.value }))
             }
             placeholder="e.g., Documentation, Support, Product"
-            type="text",
-            value={
-                uploadForm.category
+            type="text"
+            value={uploadForm.category}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="filename">
+            Filename{" "}
+            <span className="text-muted-foreground text-xs">(optional)</span>
+          </Label>
+          <Input
+            className="w-full"
+            id="filename"
+            onChange={(e) =>
+              setUploadForm((prev) => ({ ...prev, filename: e.target.value }))
             }
+            placeholder="Override default filename"
+            type="text"
+            value={uploadForm.filename}
           />
         </div>
       </DialogContent>
