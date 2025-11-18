@@ -136,6 +136,16 @@ export const FilesView = () => {
               })()}
             </TableBody>
           </Table>
+          {!isLoadingFirstPage && files.results.length > 0 && (
+            <div className="border-t">
+              <InfiniteScrollTrigger
+                canLoadMore={canLoadMore}
+                isLoadingMore={isLoadingMore}
+                onLoadMore={handleLoadMore}
+                ref={topElementRef}
+              />
+            </div>
+          )}
         </div>
       </div>
       {JSON.stringify(files)}
