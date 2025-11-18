@@ -60,6 +60,22 @@ export const UploadDialog = ({
             retrieval
           </DialogDescription>
         </DialogHeader>
+
+        <div className="space-y-2">
+          <Label htmlFor="category">Category</Label>
+          <Input
+            className="w-full"
+            id="category"
+            onChange={(e) =>
+              setUploadForm((prev) => ({ ...prev, category: e.target.value }))
+            }
+            placeholder="e.g., Documentation, Support, Product"
+            type="text",
+            value={
+                uploadForm.category
+            }
+          />
+        </div>
       </DialogContent>
     </Dialog>
   );
