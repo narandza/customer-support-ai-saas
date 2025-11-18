@@ -1,4 +1,4 @@
-import { FilesView } from "@/modules/files/ui/views/filews-view";
+import { FilesView } from "@/modules/files/ui/views/files-view";
 
 const Page = () => {
   return <FilesView />;

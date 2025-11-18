@@ -1,6 +1,8 @@
 "use client";
 import {
   Table,
+  TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -21,6 +23,18 @@ export const FilesView = () => {
     {},
     { initialNumItems: 10 }
   );
+
+  const {
+    topElementRef,
+    handleLoadMore,
+    canLoadMore,
+    isLoadingMore,
+    isLoadingFirstPage,
+  } = useInfiniteScroll({
+    status: files.status,
+    loadMore: files.loadMore,
+    loadSize: 10, // Add to constant
+  });
 
   return (
     <div className="flex min-h-screen flex-col bg-muted p-8">
@@ -49,6 +63,30 @@ export const FilesView = () => {
                 <TableHead className="px-6 py-4 font-medium">Actions</TableHead>
               </TableRow>
             </TableHeader>
+
+            <TableBody>
+              {(() => {
+                if (isLoadingFirstPage) {
+                  return (
+                    <TableRow>
+                      <TableCell className="h-24 text-center" colSpan={4}>
+                        Loading files...
+                      </TableCell>
+                    </TableRow>
+                  );
+                }
+
+                if (files.results.length === 0) {
+                  return (
+                    <TableRow>
+                      <TableCell className="h-24 text-center" colSpan={4}>
+                        No files found
+                      </TableCell>
+                    </TableRow>
+                  );
+                }
+              })()}
+            </TableBody>
           </Table>
         </div>
       </div>
