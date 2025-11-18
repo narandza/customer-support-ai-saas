@@ -1,6 +1,12 @@
 "use client";
 
-import { Dialog } from "@workspace/ui/components/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@workspace/ui/components/dialog";
 import { useAction } from "convex/react";
 import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
@@ -44,5 +50,17 @@ export const UploadDialog = ({
     }
   };
 
-  return <Dialog></Dialog>;
+  return (
+    <Dialog onOpenChange={onOpenChange} open={open}>
+      <DialogContent className="sm:max-w-lg ">
+        <DialogHeader>
+          <DialogTitle>Upload document</DialogTitle>
+          <DialogDescription>
+            Upload document to your knowledge base for AI-powered search adn
+            retrieval
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
 };
