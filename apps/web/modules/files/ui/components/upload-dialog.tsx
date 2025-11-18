@@ -11,7 +11,11 @@ import { useAction } from "convex/react";
 import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
 import { Button } from "@workspace/ui/components/button";
-import { Dropzone } from "@workspace/ui/components/dropzone";
+import {
+  Dropzone,
+  DropzoneContent,
+  DropzoneEmptyState,
+} from "@workspace/ui/components/dropzone";
 import { api } from "@workspace/backend/_generated/api";
 import { useState } from "react";
 
@@ -90,6 +94,23 @@ export const UploadDialog = ({
             value={uploadForm.filename}
           />
         </div>
+
+        <Dropzone
+          accept={{
+            "application/pdf": [".pdf"],
+            "text/csv": [".csv"],
+            "text/plain": [".txt"],
+            // "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+            //   [".docx"],
+          }}
+          disabled={isUploading}
+          maxFiles={1}
+          onDrop={() => {}}
+          src={uploadedFiles}
+        >
+          <DropzoneEmptyState />
+          <DropzoneContent />
+        </Dropzone>
       </DialogContent>
     </Dialog>
   );
