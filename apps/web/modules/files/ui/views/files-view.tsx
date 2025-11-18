@@ -1,5 +1,10 @@
 "use client";
-import { Table } from "@workspace/ui/components/table";
+import {
+  Table,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@workspace/ui/components/table";
 
 import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
 import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
@@ -34,6 +39,17 @@ export const FilesView = () => {
               Add New
             </Button>
           </div>
+
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="px-6 py-4 font-medium">Name</TableHead>
+                <TableHead className="px-6 py-4 font-medium">Type</TableHead>
+                <TableHead className="px-6 py-4 font-medium">Size</TableHead>
+                <TableHead className="px-6 py-4 font-medium">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+          </Table>
         </div>
       </div>
       {JSON.stringify(files)}
