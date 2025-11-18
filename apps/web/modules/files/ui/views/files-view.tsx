@@ -7,6 +7,8 @@ import { usePaginatedQuery } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
 
 import type { PublicFile } from "@workspace/backend/private/files";
+import { Button } from "@workspace/ui/components/button";
+import { PlusIcon } from "lucide-react";
 
 export const FilesView = () => {
   const files = usePaginatedQuery(
@@ -23,6 +25,15 @@ export const FilesView = () => {
           <p className="text-muted-foreground">
             Upload and manage documents for your AI assistant
           </p>
+        </div>
+
+        <div className="mt-8 rounded-lg border bg-background">
+          <div className="flex items-center justify-end border-b px-6 py-4">
+            <Button onClick={() => {}}>
+              <PlusIcon />
+              Add New
+            </Button>
+          </div>
         </div>
       </div>
       {JSON.stringify(files)}
