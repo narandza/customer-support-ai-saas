@@ -15,7 +15,8 @@ import { api } from "@workspace/backend/_generated/api";
 
 import type { PublicFile } from "@workspace/backend/private/files";
 import { Button } from "@workspace/ui/components/button";
-import { PlusIcon } from "lucide-react";
+import { FileIcon, PlusIcon } from "lucide-react";
+import { Badge } from "@workspace/ui/components/badge";
 
 export const FilesView = () => {
   const files = usePaginatedQuery(
@@ -85,6 +86,26 @@ export const FilesView = () => {
                     </TableRow>
                   );
                 }
+
+                return files.results.map((file) => (
+                  <TableRow className="hover:bg-muted/50" key={file.id}>
+                    <TableCell className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <FileIcon />
+                        {file.name}
+                      </div>
+                    </TableCell>
+                    <TableCell className="px-6 py-4">
+                      <Badge className="uppercase" variant="outline">
+                        {file.type}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="px-6 py-4 text-muted-foreground">
+                      {file.size}
+                    </TableCell>
+                    <TableCell className="px-6 py-4 ">{file.size}</TableCell>
+                  </TableRow>
+                ));
               })()}
             </TableBody>
           </Table>
