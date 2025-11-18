@@ -15,8 +15,14 @@ import { api } from "@workspace/backend/_generated/api";
 
 import type { PublicFile } from "@workspace/backend/private/files";
 import { Button } from "@workspace/ui/components/button";
-import { FileIcon, PlusIcon } from "lucide-react";
+import { FileIcon, MoreHorizontal, PlusIcon, TrashIcon } from "lucide-react";
 import { Badge } from "@workspace/ui/components/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@workspace/ui/components/dropdown-menu";
 
 export const FilesView = () => {
   const files = usePaginatedQuery(
@@ -103,7 +109,28 @@ export const FilesView = () => {
                     <TableCell className="px-6 py-4 text-muted-foreground">
                       {file.size}
                     </TableCell>
-                    <TableCell className="px-6 py-4 ">{file.size}</TableCell>
+                    <TableCell className="px-6 py-4 ">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            className="size-8 p-0"
+                            size="sm"
+                            variant="ghost"
+                          >
+                            <MoreHorizontal />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem
+                            className="text-destructive"
+                            onClick={() => {}}
+                          >
+                            <TrashIcon className="size-4 mr-2" />
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
                   </TableRow>
                 ));
               })()}
