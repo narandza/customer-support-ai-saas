@@ -142,7 +142,7 @@ export const UploadDialog = ({
             }}
             disabled={isUploading}
             maxFiles={1}
-            onDrop={() => {}}
+            onDrop={handleFileDrop}
             src={uploadedFiles}
           >
             <DropzoneEmptyState />
@@ -151,14 +151,18 @@ export const UploadDialog = ({
         </div>
 
         <DialogFooter>
-          <Button disabled={isUploading} variant="outline" onClick={() => {}}>
+          <Button
+            disabled={isUploading}
+            variant="outline"
+            onClick={handleCancel}
+          >
             Cancel
           </Button>
           <Button
             disabled={
               uploadedFiles.length === 0 || isUploading || !uploadForm.category
             }
-            onClick={() => {}}
+            onClick={handleUpload}
           >
             {isUploading ? "Is uploading" : "Upload"}
           </Button>
