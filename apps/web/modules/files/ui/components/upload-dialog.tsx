@@ -73,11 +73,21 @@ export const UploadDialog = ({
       });
 
       onFileUploaded?.();
+      handleCancel();
     } catch (error) {
       console.error(error);
     } finally {
       setIsUploading(false);
     }
+  };
+
+  const handleCancel = () => {
+    onOpenChange(false);
+    setUploadedFiles([]);
+    setUploadForm({
+      category: "",
+      filename: "",
+    });
   };
 
   return (
