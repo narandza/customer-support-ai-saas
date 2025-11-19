@@ -55,6 +55,31 @@ export const UploadDialog = ({
     }
   };
 
+  const handleUpload = async () => {
+    setIsUploading(true);
+    try {
+      const blob = uploadedFiles[0];
+      if (!blob) {
+        return;
+      }
+
+      const filename = uploadForm.filename || blob.name;
+
+      await addFile({
+        bytes: await blob.arrayBuffer(),
+        filename,
+        mimeType: blob.type || "text/plain",
+        category: uploadForm.category,
+      });
+
+      onFileUploaded?.();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   return (
     <Dialog onOpenChange={onOpenChange} open={open}>
       <DialogContent className="sm:max-w-lg ">
