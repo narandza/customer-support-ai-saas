@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@workspace/ui/components/dialog";
@@ -65,52 +66,68 @@ export const UploadDialog = ({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-2">
-          <Label htmlFor="category">Category</Label>
-          <Input
-            className="w-full"
-            id="category"
-            onChange={(e) =>
-              setUploadForm((prev) => ({ ...prev, category: e.target.value }))
-            }
-            placeholder="e.g., Documentation, Support, Product"
-            type="text"
-            value={uploadForm.category}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="filename">
-            Filename{" "}
-            <span className="text-muted-foreground text-xs">(optional)</span>
-          </Label>
-          <Input
-            className="w-full"
-            id="filename"
-            onChange={(e) =>
-              setUploadForm((prev) => ({ ...prev, filename: e.target.value }))
-            }
-            placeholder="Override default filename"
-            type="text"
-            value={uploadForm.filename}
-          />
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="category">Category</Label>
+            <Input
+              className="w-full"
+              id="category"
+              onChange={(e) =>
+                setUploadForm((prev) => ({ ...prev, category: e.target.value }))
+              }
+              placeholder="e.g., Documentation, Support, Product"
+              type="text"
+              value={uploadForm.category}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="filename">
+              Filename{" "}
+              <span className="text-muted-foreground text-xs">(optional)</span>
+            </Label>
+            <Input
+              className="w-full"
+              id="filename"
+              onChange={(e) =>
+                setUploadForm((prev) => ({ ...prev, filename: e.target.value }))
+              }
+              placeholder="Override default filename"
+              type="text"
+              value={uploadForm.filename}
+            />
+          </div>
+
+          <Dropzone
+            accept={{
+              "application/pdf": [".pdf"],
+              "text/csv": [".csv"],
+              "text/plain": [".txt"],
+              // "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+              //   [".docx"],
+            }}
+            disabled={isUploading}
+            maxFiles={1}
+            onDrop={() => {}}
+            src={uploadedFiles}
+          >
+            <DropzoneEmptyState />
+            <DropzoneContent />
+          </Dropzone>
         </div>
 
-        <Dropzone
-          accept={{
-            "application/pdf": [".pdf"],
-            "text/csv": [".csv"],
-            "text/plain": [".txt"],
-            // "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-            //   [".docx"],
-          }}
-          disabled={isUploading}
-          maxFiles={1}
-          onDrop={() => {}}
-          src={uploadedFiles}
-        >
-          <DropzoneEmptyState />
-          <DropzoneContent />
-        </Dropzone>
+        <DialogFooter>
+          <Button disabled={isUploading} variant="outline" onClick={() => {}}>
+            Cancel
+          </Button>
+          <Button
+            disabled={
+              uploadedFiles.length === 0 || isUploading || !uploadForm.category
+            }
+            onClick={() => {}}
+          >
+            {isUploading ? "Is uploading" : "Upload"}
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
