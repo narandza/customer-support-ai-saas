@@ -164,7 +164,7 @@ export const UploadDialog = ({
             }
             onClick={handleUpload}
           >
-            {isUploading ? "Is uploading" : "Upload"}
+            {isUploading ? "Uploading..." : "Upload"}
           </Button>
         </DialogFooter>
       </DialogContent>
