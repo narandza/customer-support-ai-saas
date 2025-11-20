@@ -23,5 +23,24 @@ export const DeleteFileDialog = ({
   const deleteFile = useMutation(api.private.files.deleteFile);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  const handleDelete = async () => {
+    if (!file) {
+      return;
+    }
+
+    setIsDeleting(true);
+
+    try {
+      await deleteFile({ entryId: file.id });
+      onDeleted?.();
+
+      onOpenChange(false);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return <div className="">Delete file dialog</div>;
 };
