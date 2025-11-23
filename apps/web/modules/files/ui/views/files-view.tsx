@@ -51,12 +51,21 @@ export const FilesView = () => {
 
   const [selectedFile, setSelectedFile] = useState<PublicFile | null>(null);
 
+  const handleDeleteClick = (file: PublicFile) => {
+    (setSelectedFile(file), setDeleteFileDialogOpen(true));
+  };
+
+  const handleFileDeleted = () => {
+    setSelectedFile(null);
+  };
+
   return (
     <>
       <DeleteFileDialog
         onOpenChange={setDeleteFileDialogOpen}
         open={deleteFileDialogOpen}
         file={selectedFile}
+        onDeleted={handleFileDeleted}
       />
       <UploadDialog
         onOpenChange={setUploadDialogOpen}
@@ -143,7 +152,7 @@ export const FilesView = () => {
                           <DropdownMenuContent align="end">
                             <DropdownMenuItem
                               className="text-destructive"
-                              onClick={() => {}}
+                              onClick={() => handleDeleteClick(file)}
                             >
                               <TrashIcon className="size-4 mr-2" />
                               Delete
