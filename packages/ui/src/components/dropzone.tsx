@@ -1,12 +1,13 @@
 "use client";
 
-import { UploadIcon } from "lucide-react";
 import type { ReactNode } from "react";
-import { createContext, useContext } from "react";
-import type { DropEvent, DropzoneOptions, FileRejection } from "react-dropzone";
+import { UploadIcon } from "lucide-react";
 import { useDropzone } from "react-dropzone";
-import { Button } from "@workspace/ui/components/button";
 import { cn } from "@workspace/ui/lib/utils";
+import { createContext, useContext } from "react";
+import { Button } from "@workspace/ui/components/button";
+
+import type { DropEvent, DropzoneOptions, FileRejection } from "react-dropzone";
 
 type DropzoneContextType = {
   src?: File[];
