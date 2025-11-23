@@ -25,6 +25,7 @@ import {
 } from "@workspace/ui/components/dropdown-menu";
 import { UploadDialog } from "../components/upload-dialog";
 import { useState } from "react";
+import { DeleteFileDialog } from "../components/delete-file-dialog";
 
 export const FilesView = () => {
   const files = usePaginatedQuery(
@@ -46,9 +47,17 @@ export const FilesView = () => {
   });
 
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
+  const [deleteFileDialogOpen, setDeleteFileDialogOpen] = useState(false);
+
+  const [selectedFile, setSelectedFile] = useState<PublicFile | null>(null);
 
   return (
     <>
+      <DeleteFileDialog
+        onOpenChange={setDeleteFileDialogOpen}
+        open={deleteFileDialogOpen}
+        file={selectedFile}
+      />
       <UploadDialog
         onOpenChange={setUploadDialogOpen}
         open={uploadDialogOpen}
