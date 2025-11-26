@@ -5,6 +5,7 @@ import z from "zod";
 import { internal } from "../../../_generated/api";
 import { supportAgent } from "../agents/supportAgent";
 import rag from "../rag";
+import { SEARCH_INTERPRETER_PROMPT } from "../consants";
 
 export const search = createTool({
   description:
@@ -45,8 +46,7 @@ export const search = createTool({
       messages: [
         {
           role: "system",
-          content:
-            "You interpret knowledge base search results and provide helpful, accurate answers to user questions.",
+          content: SEARCH_INTERPRETER_PROMPT,
         },
         {
           role: "user",
