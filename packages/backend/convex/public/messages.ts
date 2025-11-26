@@ -63,9 +63,9 @@ export const create = action({
         {
           prompt: args.prompt,
           tools: {
-            escalateConversation,
-            resolveConversation,
-            search,
+            escalateConversationTool: escalateConversation,
+            resolveConversationTool: resolveConversation,
+            searchTool: search,
           },
         }
       );
