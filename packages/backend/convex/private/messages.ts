@@ -7,7 +7,7 @@ import { paginationOptsValidator } from "convex/server";
 import { components, internal } from "../_generated/api";
 import { action, mutation, query } from "../_generated/server";
 import { supportAgent } from "../system/ai/agents/supportAgent";
-import { OPERATOR_MESSAGE_ENHANCEMENT_PROMPT } from "../system/ai/consants";
+import { OPERATOR_MESSAGE_ENHANCEMENT_PROMPT } from "../system/ai/constants";
 
 export const enhanceResponse = action({
   args: {

@@ -1,11 +1,12 @@
+import z from "zod";
+import { generateText } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { createTool } from "@convex-dev/agent";
-import { generateText } from "ai";
-import z from "zod";
+
+import rag from "../rag";
 import { internal } from "../../../_generated/api";
 import { supportAgent } from "../agents/supportAgent";
-import rag from "../rag";
-import { SEARCH_INTERPRETER_PROMPT } from "../consants";
+import { SEARCH_INTERPRETER_PROMPT } from "../constants";
 
 export const search = createTool({
   description:
