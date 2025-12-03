@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { internalMutation } from "../_generated/server";
+import { internalMutation, internalQuery } from "../_generated/server";
 
 export const upsert = internalMutation({
   args: {
@@ -27,5 +27,19 @@ export const upsert = internalMutation({
         secretName: args.secretName,
       });
     }
+  },
+});
+
+export const getByOrganizationIdAndService = internalQuery({
+  args: {
+    organizationId: v.string(),
+    service: v.union(v.literal("vapi")),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("plugins")
+      .withIndex("by_organization_id_and_service", (q) =>
+        q.eq("organizationId", args.organizationId).eq("service", args.service)
+      );
   },
 });
