@@ -14,7 +14,7 @@ export const VapiView = () => {
         </div>
 
         <div className="mt-8">
-          <PluginCard />
+          <PluginCard serviceName="Vapi" serviceImage="/vapi.jpg" />
         </div>
       </div>
     </div>
