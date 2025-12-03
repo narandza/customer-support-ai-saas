@@ -47,6 +47,8 @@ export const VapiView = () => {
             serviceName="Vapi"
             serviceImage="/vapi.jpg"
             features={vapiFeatures}
+            isDisabled={false}
+            onSubmit={() => {}}
           />
         </div>
       </div>
