@@ -1,6 +1,35 @@
 "use client";
 
-import { PluginCard } from "../components/plugin-card";
+import {
+  GlobeIcon,
+  PhoneCallIcon,
+  PhoneIcon,
+  WorkflowIcon,
+} from "lucide-react";
+import { Feature, PluginCard } from "../components/plugin-card";
+
+const vapiFeatures: Feature[] = [
+  {
+    icon: GlobeIcon,
+    label: "Web voice calls",
+    description: "Voice chat directly in your app",
+  },
+  {
+    icon: PhoneIcon,
+    label: "Phone numbers",
+    description: "Get dedicated business lines",
+  },
+  {
+    icon: PhoneCallIcon,
+    label: "Outbound calls",
+    description: "Automated customer outreach",
+  },
+  {
+    icon: WorkflowIcon,
+    label: "Workflows",
+    description: "Custom conversation flows",
+  },
+];
 
 export const VapiView = () => {
   return (
@@ -14,7 +43,11 @@ export const VapiView = () => {
         </div>
 
         <div className="mt-8">
-          <PluginCard serviceName="Vapi" serviceImage="/vapi.jpg" />
+          <PluginCard
+            serviceName="Vapi"
+            serviceImage="/vapi.jpg"
+            features={vapiFeatures}
+          />
         </div>
       </div>
     </div>

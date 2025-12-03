@@ -63,6 +63,12 @@ export const PluginCard = ({
               <div className="flex size-8 items-center justify-center rounded-lg border bg-muted">
                 <feature.icon className="size-4 text-muted-foreground" />
               </div>
+              <div className="">
+                <div className="font-medium text-sm">{feature.label}</div>
+                <div className="text-xs text-muted-foreground">
+                  {feature.description}
+                </div>
+              </div>
             </div>
           ))}
         </div>
