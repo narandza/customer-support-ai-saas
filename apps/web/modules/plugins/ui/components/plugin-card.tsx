@@ -1,4 +1,4 @@
-import { ArrowLeftRightIcon, type LucideIcon } from "lucide-react";
+import { ArrowLeftRightIcon, PlugIcon, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@workspace/ui/components/button";
 
@@ -72,6 +72,18 @@ export const PluginCard = ({
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="text-center">
+        <Button
+          className="size-full"
+          disabled={isDisabled}
+          onClick={onSubmit}
+          variant="default"
+        >
+          Connect
+          <PlugIcon />
+        </Button>
       </div>
     </div>
   );
