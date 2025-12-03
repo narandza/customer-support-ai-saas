@@ -1,6 +1,8 @@
 import {
   CreateSecretCommand,
   GetSecretValueCommand,
+  PutSecretValueCommand,
+  ResourceExistsException,
   SecretsManagerClient,
   type GetSecretValueCommandOutput,
 } from "@aws-sdk/client-secrets-manager";
@@ -21,4 +23,30 @@ export async function getSecretValue(
   const client = createSecretsMangerClient();
 
   return await client.send(new GetSecretValueCommand({ SecretId: secretName }));
+}
+
+export async function upsertSecret(
+  secretName: string,
+  secretValue: Record<string, unknown>
+): Promise<void> {
+  const client = createSecretsMangerClient();
+  try {
+    await client.send(
+      new CreateSecretCommand({
+        Name: secretName,
+        SecretString: JSON.stringify(secretValue),
+      })
+    );
+  } catch (error) {
+    if (error instanceof ResourceExistsException) {
+      await client.send(
+        new PutSecretValueCommand({
+          SecretId: secretName,
+          SecretString: JSON.stringify(secretValue),
+        })
+      );
+    } else {
+      throw error;
+    }
+  }
 }
