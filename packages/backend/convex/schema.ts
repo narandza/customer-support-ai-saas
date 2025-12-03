@@ -2,6 +2,11 @@ import { v } from "convex/values";
 import { defineSchema, defineTable } from "convex/server";
 
 export default defineSchema({
+  plugins: defineTable({
+    organizationId: v.string(),
+    service: v.union(v.literal("vapi")),
+    secretName: v.string(),
+  }),
   conversations: defineTable({
     threadId: v.string(),
     organizationId: v.string(),
