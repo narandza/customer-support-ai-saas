@@ -1,5 +1,7 @@
 "use client";
 
+import { PluginCard } from "../components/plugin-card";
+
 export const VapiView = () => {
   return (
     <div className="flex min-h-screen flex-col bg-muted p-8">
@@ -11,7 +13,9 @@ export const VapiView = () => {
           </p>
         </div>
 
-        <div className="mt-8">TODO: Plugin Card</div>
+        <div className="mt-8">
+          <PluginCard />
+        </div>
       </div>
     </div>
   );
