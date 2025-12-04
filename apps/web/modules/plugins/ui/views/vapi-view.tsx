@@ -9,6 +9,11 @@ import {
 import { Feature, PluginCard } from "../components/plugin-card";
 import { useQuery } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
+import { useState } from "react";
+import { Dialog } from "@workspace/ui/components/dialog";
+import { Form } from "@workspace/ui/components/form";
+import { Input } from "@workspace/ui/components/input";
+import { Label } from "@workspace/ui/components/label";
 
 const vapiFeatures: Feature[] = [
   {
@@ -35,6 +40,8 @@ const vapiFeatures: Feature[] = [
 
 export const VapiView = () => {
   const vapiPlugin = useQuery(api.private.plugins.getOne, { service: "vapi" });
+
+  const [connectOpen, setConnectOpen] = useState(false);
 
   return (
     <div className="flex min-h-screen flex-col bg-muted p-8">
