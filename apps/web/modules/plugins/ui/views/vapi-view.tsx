@@ -7,6 +7,8 @@ import {
   WorkflowIcon,
 } from "lucide-react";
 import { Feature, PluginCard } from "../components/plugin-card";
+import { useQuery } from "convex/react";
+import { api } from "@workspace/backend/_generated/api";
 
 const vapiFeatures: Feature[] = [
   {
@@ -32,6 +34,8 @@ const vapiFeatures: Feature[] = [
 ];
 
 export const VapiView = () => {
+  const vapiPlugin = useQuery(api.private.plugins.getOne, { service: "vapi" });
+
   return (
     <div className="flex min-h-screen flex-col bg-muted p-8">
       <div className="mx-auto w-full max-w-screen-md">
@@ -43,13 +47,17 @@ export const VapiView = () => {
         </div>
 
         <div className="mt-8">
-          <PluginCard
-            serviceName="Vapi"
-            serviceImage="/vapi.jpg"
-            features={vapiFeatures}
-            isDisabled={false}
-            onSubmit={() => {}}
-          />
+          {vapiPlugin ? (
+            <p>Connected</p>
+          ) : (
+            <PluginCard
+              serviceName="Vapi"
+              serviceImage="/vapi.jpg"
+              features={vapiFeatures}
+              isDisabled={vapiPlugin === undefined}
+              onSubmit={() => {}}
+            />
+          )}
         </div>
       </div>
     </div>
