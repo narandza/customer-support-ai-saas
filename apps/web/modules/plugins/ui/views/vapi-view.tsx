@@ -7,13 +7,14 @@ import {
   WorkflowIcon,
 } from "lucide-react";
 import { Feature, PluginCard } from "../components/plugin-card";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
 import { useState } from "react";
 import { Dialog } from "@workspace/ui/components/dialog";
 import { Form } from "@workspace/ui/components/form";
 import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
+import z from "zod";
 
 const vapiFeatures: Feature[] = [
   {
@@ -37,6 +38,19 @@ const vapiFeatures: Feature[] = [
     description: "Custom conversation flows",
   },
 ];
+
+const formSchema = z.object({
+  publicApiKey: z.string().min(1, { message: "Public API key is required" }),
+  privateApiKey: z.string().min(1, { message: "Private API key is required" }),
+});
+
+const VapiPluginForm = ({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: (value: boolean) => void;
+}) => {};
 
 export const VapiView = () => {
   const vapiPlugin = useQuery(api.private.plugins.getOne, { service: "vapi" });
