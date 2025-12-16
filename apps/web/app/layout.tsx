@@ -1,9 +1,9 @@
 import "@workspace/ui/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "@workspace/ui/components/sonner";
 
 import { Providers } from "@/components/providers";
-import { Toaster } from "@workspace/ui/components/sonner";
 
 const fontSans = Geist({
   subsets: ["latin"],

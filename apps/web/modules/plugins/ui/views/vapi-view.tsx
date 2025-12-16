@@ -6,10 +6,16 @@ import {
   PhoneIcon,
   WorkflowIcon,
 } from "lucide-react";
-import { Feature, PluginCard } from "../components/plugin-card";
-import { useMutation, useQuery } from "convex/react";
-import { api } from "@workspace/backend/_generated/api";
+
+import z from "zod";
+import { toast } from "sonner";
 import { useState } from "react";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+} from "@workspace/ui/components/form";
 import {
   Dialog,
   DialogContent,
@@ -18,19 +24,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@workspace/ui/components/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-} from "@workspace/ui/components/form";
+import { useForm } from "react-hook-form";
+import { useMutation, useQuery } from "convex/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
-import z from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
+import { api } from "@workspace/backend/_generated/api";
 import { Button } from "@workspace/ui/components/button";
+
+import { Feature, PluginCard } from "../components/plugin-card";
 
 const vapiFeatures: Feature[] = [
   {
@@ -86,6 +88,8 @@ const VapiPluginForm = ({
           privateApiKey: values.privateApiKey,
         },
       });
+      setOpen(false);
+      toast.success("Vapi secret created");
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong");
