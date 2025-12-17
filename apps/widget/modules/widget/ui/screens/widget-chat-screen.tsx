@@ -27,7 +27,7 @@ import { Button } from "@workspace/ui/components/button";
 import { Form, FormField } from "@workspace/ui/components/form";
 import { AIResponse } from "@workspace/ui/components/ai/response";
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
-import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
+import { useThreadMessages, toUIMessages } from "@convex-dev/agent/react";
 import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
 import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
 
@@ -137,7 +137,8 @@ export const WidgetChatScreen = () => {
                 key={message.id}
               >
                 <AIMessageContent>
-                  <AIResponse>{message.content}</AIResponse>
+                  {/* TODO: Find fix */}
+                  <AIResponse>{(message as any).content}</AIResponse>
                 </AIMessageContent>
                 {message.role === "assistant" && (
                   <DicebearAvatar
