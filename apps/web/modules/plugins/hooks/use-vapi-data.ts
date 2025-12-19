@@ -6,6 +6,38 @@ import { toast } from "sonner";
 type PhoneNumbers = typeof api.private.vapi.getPhoneNumbers._returnType;
 type Assistants = typeof api.private.vapi.getAssistants._returnType;
 
+export const useVapiAssistance = (): {
+  data: Assistants;
+  isLoading: boolean;
+  error: Error | null;
+} => {
+  const [data, setData] = useState<Assistants>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const getPhoneNumbers = useAction(api.private.vapi.getAssistants);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const result = await getPhoneNumbers();
+
+        setData(result);
+        setError(null);
+      } catch (error) {
+        setError(error as Error);
+        toast.error("Failed to fetch assistants");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [getPhoneNumbers]);
+
+  return { data, isLoading, error };
+};
 export const useVapiPhoneNumbers = (): {
   data: PhoneNumbers;
   isLoading: boolean;
