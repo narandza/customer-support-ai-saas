@@ -67,9 +67,9 @@ export const getAssistants = action({
       token: secretData.privateApiKey,
     });
 
-    const phoneNumber = await vapiClient.assistants.list();
+    const assistants = await vapiClient.assistants.list();
 
-    return phoneNumber;
+    return assistants;
   },
 });
 
@@ -136,7 +136,7 @@ export const getPhoneNumbers = action({
       token: secretData.privateApiKey,
     });
 
-    const phoneNumber = await vapiClient.phoneNumbers;
+    const phoneNumber = await vapiClient.phoneNumbers.list();
 
     return phoneNumber;
   },
