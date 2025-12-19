@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 type PhoneNumbers = typeof api.private.vapi.getPhoneNumbers._returnType;
+type Assistants = typeof api.private.vapi.getAssistants._returnType;
 
 export const useVapiPhoneNumbers = (): {
   data: PhoneNumbers;

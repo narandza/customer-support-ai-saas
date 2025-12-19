@@ -4,7 +4,7 @@ import { action } from "../_generated/server";
 import { getSecretValue, parseSecretString } from "../lib/secrets";
 import { ConvexError } from "convex/values";
 
-export const getAssistance = action({
+export const getAssistants = action({
   args: {},
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
