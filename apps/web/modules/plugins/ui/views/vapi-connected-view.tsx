@@ -1,6 +1,6 @@
 "use client";
 
-import { BotIcon, SettingsIcon, UnplugIcon } from "lucide-react";
+import { BotIcon, PhoneIcon, SettingsIcon, UnplugIcon } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
-import { Tabs } from "@workspace/ui/components/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@workspace/ui/components/tabs";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -71,6 +71,24 @@ export const VapiConnectedView = ({ onDisconnect }: VapiConnectedViewPros) => {
           </div>
         </CardHeader>
       </Card>
+
+      <div className="overflow-hidden rounded-lg border bg-background">
+        <Tabs
+          className="gap-0"
+          defaultValue="phone-numbers"
+          onValueChange={setActiveTab}
+          value={activeTab}
+        >
+          <TabsList className="grid h-12 w-full gird-cols-2 p-0">
+            <TabsTrigger value="phone-numbers" className="h-full rounded-none">
+              <PhoneIcon /> Phone Numbers
+            </TabsTrigger>
+            <TabsTrigger value="assistants" className="h-full rounded-none">
+              <BotIcon /> AI Assistants
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
     </div>
   );
 };
