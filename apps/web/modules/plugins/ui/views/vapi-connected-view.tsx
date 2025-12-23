@@ -1,6 +1,6 @@
 "use client";
 
-import { BotIcon, UnplugIcon } from "lucide-react";
+import { BotIcon, SettingsIcon, UnplugIcon } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -11,6 +11,7 @@ import {
 } from "@workspace/ui/components/card";
 import { Tabs } from "@workspace/ui/components/tabs";
 import { useState } from "react";
+import Link from "next/link";
 
 interface VapiConnectedViewPros {
   onDisconnect: () => void;
@@ -43,6 +44,29 @@ export const VapiConnectedView = ({ onDisconnect }: VapiConnectedViewPros) => {
 
             <Button onClick={onDisconnect} size="sm" variant="destructive">
               <UnplugIcon /> Disconnect
+            </Button>
+          </div>
+        </CardHeader>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-muted">
+                <SettingsIcon className="size-6 text-muted-foreground" />
+              </div>
+              <div className="">
+                <CardTitle>Widget Configuration</CardTitle>
+                <CardDescription>
+                  Set up voice calls for your char widget
+                </CardDescription>
+              </div>
+            </div>
+            <Button asChild>
+              <Link href="/customization">
+                <SettingsIcon /> Configure
+              </Link>
             </Button>
           </div>
         </CardHeader>
