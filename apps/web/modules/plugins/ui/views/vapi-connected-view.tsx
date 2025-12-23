@@ -1,9 +1,14 @@
 "use client";
 
-import { BotIcon } from "lucide-react";
+import { BotIcon, UnplugIcon } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@workspace/ui/components/button";
-import { Card, CardHeader } from "@workspace/ui/components/card";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@workspace/ui/components/card";
 import { Tabs } from "@workspace/ui/components/tabs";
 import { useState } from "react";
 
@@ -28,7 +33,17 @@ export const VapiConnectedView = ({ onDisconnect }: VapiConnectedViewPros) => {
                 width={48}
                 src="/vapi.jpg"
               />
+              <div className="">
+                <CardTitle>Vapi Integration</CardTitle>
+                <CardDescription>
+                  Manage your phone numbers and AI assistants
+                </CardDescription>
+              </div>
             </div>
+
+            <Button onClick={onDisconnect} size="sm" variant="destructive">
+              <UnplugIcon /> Disconnect
+            </Button>
           </div>
         </CardHeader>
       </Card>
