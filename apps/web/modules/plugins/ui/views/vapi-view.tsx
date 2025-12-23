@@ -33,6 +33,7 @@ import { api } from "@workspace/backend/_generated/api";
 import { Button } from "@workspace/ui/components/button";
 
 import { Feature, PluginCard } from "../components/plugin-card";
+import { VapiConnectedView } from "./vapi-connected-view";
 
 const vapiFeatures: Feature[] = [
   {
@@ -183,7 +184,7 @@ export const VapiView = () => {
 
           <div className="mt-8">
             {vapiPlugin ? (
-              <p>Connected</p>
+              <VapiConnectedView onDisconnect={handleSubmit} />
             ) : (
               <PluginCard
                 serviceName="Vapi"
