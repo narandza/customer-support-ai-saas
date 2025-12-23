@@ -204,7 +204,7 @@ export const VapiView = () => {
   const [connectOpen, setConnectOpen] = useState(false);
   const [removeOpen, setRemoveOpen] = useState(false);
 
-  const handleSubmit = () => {
+  const toggleConnection = () => {
     if (vapiPlugin) {
       setRemoveOpen(true);
     } else {
@@ -227,14 +227,14 @@ export const VapiView = () => {
 
           <div className="mt-8">
             {vapiPlugin ? (
-              <VapiConnectedView onDisconnect={handleSubmit} />
+              <VapiConnectedView onDisconnect={toggleConnection} />
             ) : (
               <PluginCard
                 serviceName="Vapi"
                 serviceImage="/vapi.jpg"
                 features={vapiFeatures}
                 isDisabled={vapiPlugin === undefined}
-                onSubmit={handleSubmit}
+                onSubmit={toggleConnection}
               />
             )}
           </div>
